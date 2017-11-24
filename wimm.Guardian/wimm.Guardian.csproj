@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>0.1.0</Version>
+    <Copyright>Copyright 2017 (c) Thomas Showers. All rights reserved.</Copyright>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <PackageTags>Validation, Arguments, Guard</PackageTags>
+    <Authors>Thomas Showers</Authors>
+    <Company>wareismymind</Company>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
+    <PackageReleaseNotes>- Introduces the ISubject interface for representing validation targets and their values.
+- Introduces the Subject type to act as the base ISubject implementation.
+- Creates an extension to fluently turn any value, including null, into an ISubject.
+- Introduces the Argument type to scope argument specific validations to ISubject instances.
+- Creates an extension to fluently turn an ISubject into an Argument.
+- Adds IsNotNull extension to the Argument type.</PackageReleaseNotes>
+    <Description>A fluent, extensible interface for guard clauses and argument validation.</Description>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('$(WIMM_SNKS)\wimm.Guardian.snk')">  
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>$(WIMM_SNKS)\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Consequence.cs" />
+    <Compile Remove="Requirement.cs" />
+  </ItemGroup>
+
+</Project>
