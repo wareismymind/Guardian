@@ -5,7 +5,7 @@ namespace wimm.Guardian
     /// <summary>
     /// Adds 'IsNotNull' extensions to the <see cref="Argument{T}"/> type.
     /// </summary>
-    public static class Argument_IsNotNullExtensions
+    public static class ArgumentIsNotNullExtension
     {
         /// <summary>
         /// Throws an <see cref="ArgumentNullException"/> if the value of

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace wimm.Guardian.UnitTests
 {
-    public class ArgumentIsNotNullTests
+    public class ArgumentIsNotNullExtensionTests
     {
         [Fact(DisplayName = "IsNotNull throws for null valued Argument")]
         public void IsNotNull_Throws_For_Null_Valued_Argument()
