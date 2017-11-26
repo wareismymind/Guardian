@@ -22,6 +22,7 @@
 - Adds IsNotNull extension to the Argument type.</PackageReleaseNotes>
     <Description>A fluent, extensible interface for guard clauses and argument validation.</Description>
     <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="Exists('$(WIMM_SNKS)\wimm.Guardian.snk')">  
     <SignAssembly>true</SignAssembly>
