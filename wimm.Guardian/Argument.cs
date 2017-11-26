@@ -79,8 +79,12 @@ namespace wimm.Guardian
         /// <typeparam name="T">The type of the </typeparam>
         /// <param name="subject"></param>
         /// <returns>An <see cref="Guardian.Argument{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="subject"/> is <c>null</c>.
+        /// </exception>
         public static Argument<T> Argument<T>(this ISubject<T> subject)
         {
+            if (subject == null) { throw new ArgumentNullException(nameof(subject)); }
             return new Argument<T>(subject);
         }
     }
