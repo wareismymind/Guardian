@@ -32,22 +32,22 @@ namespace wimm.Guardian
         /// <summary>
         /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is false.
         /// </summary>
-        /// <param name="subject">The target <see cref="ISubject{T}"/>.</param>
+        /// <param name="target">The target.</param>
         /// <param name="condition">The condition to check.</param>
         /// <param name="consequence">The action to perform.</param>
         /// <returns>The <see cref="ISubject{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="subject"/>, <paramref name="condition"/>, or
+        /// <paramref name="target"/>, <paramref name="condition"/>, or
         /// <paramref name="consequence"/> is <c>null</c>.
         /// </exception>
         public static ISubject<T> IfNot<T>(
-            this ISubject<T> subject, Func<T, bool> condition, Action<ISubject<T>> consequence)
+            this ISubject<T> target, Func<T, bool> condition, Action<ISubject<T>> consequence)
         {
-            if (subject == null) { throw new ArgumentNullException(nameof(subject)); }
+            if (target == null) { throw new ArgumentNullException(nameof(target)); }
             if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
             if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
-            if (!condition(subject.Value)) { consequence(subject); }
-            return subject;
+            if (!condition(target.Value)) { consequence(target); }
+            return target;
         }
     }
 }

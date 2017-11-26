@@ -77,15 +77,15 @@ namespace wimm.Guardian
         /// Gets an <see cref="wimm.Guardian.Argument{T}"/> from an <see cref="ISubject{T}"/>.
         /// </summary>
         /// <typeparam name="T">The type of the </typeparam>
-        /// <param name="subject"></param>
+        /// <param name="target">The target.</param>
         /// <returns>An <see cref="Guardian.Argument{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="subject"/> is <c>null</c>.
+        /// <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> Argument<T>(this ISubject<T> subject)
+        public static Argument<T> Argument<T>(this ISubject<T> target)
         {
-            if (subject == null) { throw new ArgumentNullException(nameof(subject)); }
-            return new Argument<T>(subject);
+            if (target == null) { throw new ArgumentNullException(nameof(target)); }
+            return new Argument<T>(target);
         }
     }
 }
