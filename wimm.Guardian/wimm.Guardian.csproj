@@ -11,7 +11,7 @@
     <PackageTags>Validation, Arguments, Guard</PackageTags>
     <Authors>Thomas Showers</Authors>
     <Company>wareismymind</Company>
-    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/release/0.1/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
     <PackageReleaseNotes>- Introduces the ISubject interface for representing validation targets and their values.
