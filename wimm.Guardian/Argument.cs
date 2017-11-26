@@ -37,6 +37,20 @@ namespace wimm.Guardian
         }
 
         /// <summary>
+        /// Throws an <see cref="ArgumentNullException"/> if the value of the
+        /// <see cref="Argument{T}"/> is null.
+        /// </summary>
+        /// <returns>The <see cref="Argument{T}"/>.</returns>
+        public Argument<T> IsNotNull()
+        {
+            // This method was added directly to the type (instead of as an extension targeting
+            // only nullable tyoes) because I couldn't find a generic constraint that included
+            // reference types and nullable primative type (int?, etc.).
+
+            return IfNot(v => v != null, a => throw new ArgumentNullException(a.Name));
+        }
+
+        /// <summary>
         /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is false.
         /// </summary>
         /// <param name="condition">The condition to check.</param>
