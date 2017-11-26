@@ -19,10 +19,7 @@ namespace wimm.Guardian
             // This extension is available to non-nullable types because I couldn't find a generic
             // constraint that included reference types and nullables (int?, etc.).
 
-            return 
-                argument.IfNot(
-                    v => v != null, 
-                    a => throw new ArgumentNullException(a.Name)) as Argument<T>;
+            return argument.IfNot(v => v != null, a => throw new ArgumentNullException(a.Name));
         }
     }
 }
