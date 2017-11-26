@@ -30,8 +30,9 @@ namespace wimm.Guardian
     public static class ISubjectExtensions
     {
         /// <summary>
-        /// Performs <paramref name="consequence"/> if <paramref name="condition"/> is false.
+        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is false.
         /// </summary>
+        /// <param name="subject">The target <see cref="ISubject{T}"/>.</param>
         /// <param name="condition">The condition to check.</param>
         /// <param name="consequence">The action to perform.</param>
         /// <returns>The <see cref="ISubject{T}"/>.</returns>

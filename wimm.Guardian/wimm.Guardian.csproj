@@ -28,6 +28,14 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>$(WIMM_SNKS)\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Consequence.cs" />

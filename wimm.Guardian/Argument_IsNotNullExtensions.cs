@@ -13,7 +13,7 @@ namespace wimm.Guardian
         /// </summary>
         /// <typeparam name="T">The type of the value of <paramref name="argument"/>.</typeparam>
         /// <param name="argument">The <see cref="Argument{T}"/> to evaluate.</param>
-        /// <returns><c>this</c>.</returns>
+        /// <returns>The <see cref="Argument{T}"/>.</returns>
         public static Argument<T> IsNotNull<T>(this Argument<T> argument)
         {
             // This extension is available to non-nullable types because I couldn't find a generic
