@@ -51,7 +51,24 @@ namespace wimm.Guardian
         }
 
         /// <summary>
-        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is false.
+        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is <c>true</c>.
+        /// </summary>
+        /// <param name="condition">The condition to check.</param>
+        /// <param name="consequence">The action to perform.</param>
+        /// <returns>The <see cref="Argument{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="condition"/>, or <paramref name="consequence"/> is <c>null</c>.
+        /// </exception>
+        public Argument<T> If(Func<T, bool> condition, Action<ISubject<T>> consequence)
+        {
+            if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
+            if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
+            return (this as ISubject<T>).If(condition, consequence) as Argument<T>;
+        }
+
+        /// <summary>
+        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is
+        /// <c>false</c>.
         /// </summary>
         /// <param name="condition">The condition to check.</param>
         /// <param name="consequence">The action to perform.</param>

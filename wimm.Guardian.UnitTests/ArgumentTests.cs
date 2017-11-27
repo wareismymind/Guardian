@@ -53,6 +53,98 @@ namespace wimm.Guardian.UnitTests
             }
         }
 
+        [Fact(DisplayName = "If throws for null condition")]
+        public void If_Throws_For_Null_Condition()
+        {
+            var subject = new Mock<ISubject<object>>();
+            var argument = new Argument<object>(subject.Object);
+            var ex =
+                Assert.Throws<ArgumentNullException>(() => argument.If(null, s => { }));
+        }
+
+        [Fact(DisplayName = "If throws for null consequence")]
+        public void If_Throws_For_Null_Consequence()
+        {
+            var subject = new Mock<ISubject<object>>();
+            var argument = new Argument<object>(subject.Object);
+            var ex = Assert.Throws<ArgumentNullException>(() => argument.If(v => true, null));
+        }
+
+        [Fact(DisplayName = "If does not execute consequence when condition is false")]
+        public void If_Does_Not_Execute_Consequence_When_Condition_Is_False()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var ran = false;
+            argument.If(v => false, s => ran = true);
+            Assert.False(ran);
+        }
+
+        [Fact(DisplayName = "If executes consequence when condition is true")]
+        public void If_Executes_Consequence_When_Condition_Is_True()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var ran = false;
+            argument.If(v => true, s => ran = true);
+            Assert.True(ran);
+        }
+
+        [Fact(DisplayName = "If returns target")]
+        public void If_Returns_Target()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var returned = argument.If(v => false, s => { });
+            Assert.Same(returned, returned);
+        }
+
+        [Fact(DisplayName = "IfNot throws for null condition")]
+        public void IfNot_Throws_For_Null_Condition()
+        {
+            var subject = new Mock<ISubject<object>>();
+            var argument = new Argument<object>(subject.Object);
+            var ex = 
+                Assert.Throws<ArgumentNullException>(() => argument.IfNot(null, s => { }));
+        }
+
+        [Fact(DisplayName = "IfNot throws for null consequence")]
+        public void IfNot_Throws_For_Null_Consequence()
+        {
+            var subject = new Mock<ISubject<object>>();
+            var argument = new Argument<object>(subject.Object);
+            var ex = Assert.Throws<ArgumentNullException>(() => argument.IfNot(v => true, null));
+        }
+
+        [Fact(DisplayName = "IfNot executes consequence when condition is false")]
+        public void IfNot_Executes_Consequence_When_Condition_Is_False()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var ran = false;
+            argument.IfNot(v => false, s => ran = true);
+            Assert.True(ran);
+        }
+
+        [Fact(DisplayName = "IfNot does not execute consequence when condition is true")]
+        public void IfNot_Does_Not_Execute_Consequence_When_Condition_Is_True()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var ran = false;
+            argument.IfNot(v => true, s => ran = true);
+            Assert.False(ran);
+        }
+
+        [Fact(DisplayName = "IfNot returns target")]
+        public void IfNot_Returns_Target()
+        {
+            var subject = new Mock<ISubject<int>>();
+            var argument = new Argument<int>(subject.Object);
+            var returned = argument.IfNot(v => true, s => { });
+            Assert.Same(argument, returned);
+        }
+
         [Fact(DisplayName = "IsNotNull throws for null valued Argument")]
         public void IsNotNull_Throws_For_Null_Valued_Argument()
         {

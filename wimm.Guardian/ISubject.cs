@@ -30,7 +30,29 @@ namespace wimm.Guardian
     public static class ISubjectExtensions
     {
         /// <summary>
-        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is false.
+        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is <c>true</c>.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="condition">The condition to check.</param>
+        /// <param name="consequence">The action to perform.</param>
+        /// <returns>The <see cref="ISubject{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="target"/>, <paramref name="condition"/>, or
+        /// <paramref name="consequence"/> is <c>null</c>.
+        /// </exception>
+        public static ISubject<T> If<T>(
+            this ISubject<T> target, Func<T, bool> condition, Action<ISubject<T>> consequence)
+        {
+            if (target == null) { throw new ArgumentNullException(nameof(target)); }
+            if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
+            if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
+            if (condition(target.Value)) { consequence(target); }
+            return target;
+        }
+
+        /// <summary>
+        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is
+        /// <c>false</c>.
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="condition">The condition to check.</param>
@@ -46,8 +68,7 @@ namespace wimm.Guardian
             if (target == null) { throw new ArgumentNullException(nameof(target)); }
             if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
             if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
-            if (!condition(target.Value)) { consequence(target); }
-            return target;
+            return target.If(t => !condition(t), consequence);
         }
     }
 }
