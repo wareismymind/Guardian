@@ -33,5 +33,13 @@ namespace wimm.Guardian.UnitTests
             var subject = new Subject<int>(value, "name");
             Assert.Equal(value, subject.Value);
         }
+
+        [Fact(DisplayName = "Subject has reference equal value for reference type")]
+        public void Subject_Has_Reference_Equal_Value_For_Reference_Type()
+        {
+            var value = new object();
+            var subject = new Subject<object>(value, "name");
+            Assert.Same(value, subject.Value);
+        }
     }
 }
