@@ -14,7 +14,7 @@
     <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/release/0.1/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
-    <PackageReleaseNotes>- Adds range validations to numeric typed Arguments</PackageReleaseNotes>
+    <PackageReleaseNotes>- Adds range validations to IComparable Arguments</PackageReleaseNotes>
     <Description>A fluent, extensible interface for guard clauses and argument validation.</Description>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
