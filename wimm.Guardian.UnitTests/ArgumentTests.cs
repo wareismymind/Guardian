@@ -30,8 +30,8 @@ namespace wimm.Guardian.UnitTests
             }
         }
 
-        [Fact(DisplayName = "IsNotNull throws for null valued Argument")]
-        public void IsNotNull_Throws_For_Null_Valued_Argument()
+        [Fact(DisplayName = "IsNotNull throws when Argument value is null")]
+        public void IsNotNull_Throws_When_Argument_Value_Is_Null()
         {
             var name = "name";
             var ex = Assert.Throws<ArgumentNullException>(
@@ -39,8 +39,8 @@ namespace wimm.Guardian.UnitTests
             Assert.Equal(name, ex.ParamName);
         }
 
-        [Fact(DisplayName = "IsNotNull does not throw for non-null valued Argument")]
-        public void IsNotNull_Does_Not_Throw_For_NonNull_Valued_Argument()
+        [Fact(DisplayName = "IsNotNull does not throw an when Argument value is not null")]
+        public void IsNotNull_Does_Not_Throw_When_Argument_Value_Is_Not_Null()
         {
             "value".Require("name").Argument().IsNotNull();
         }
