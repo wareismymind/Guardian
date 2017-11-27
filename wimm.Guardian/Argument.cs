@@ -47,7 +47,7 @@ namespace wimm.Guardian
             // only nullable tyoes) because I couldn't find a generic constraint that included
             // reference types and nullable primative type (int?, etc.).
 
-            return IfNot(v => v != null, a => throw new ArgumentNullException(a.Name));
+            return If(v => v == null, a => throw new ArgumentNullException(a.Name));
         }
 
         /// <summary>
