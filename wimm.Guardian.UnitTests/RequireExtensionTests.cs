@@ -8,7 +8,8 @@ namespace wimm.Guardian.UnitTests
         [Fact(DisplayName = "Require throws for null name")]
         public void Require_Throws_For_Null_Name()
         {
-            Assert.Throws<ArgumentNullException>(() => 42.Require(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => 42.Require(null));
+            Assert.Equal("name", ex.ParamName);
         }
 
         [Fact(DisplayName = "Require returns a valid ISubject")]

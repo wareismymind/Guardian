@@ -20,7 +20,7 @@ namespace wimm.Guardian
         public static Argument<T> IsLessThan<T, TValue>(
             this Argument<T> target, TValue value) where T : IComparable<TValue>
         {
-            target.Require(nameof(value)).Argument().IsNotNull();
+            target.Require(nameof(target)).Argument().IsNotNull();
             value.Require(nameof(value)).Argument().IsNotNull();
 
             return
@@ -46,7 +46,7 @@ namespace wimm.Guardian
         public static Argument<T> IsNotLessThan<T, TValue>(
             this Argument<T> target, TValue value) where T : IComparable<TValue>
         {
-            target.Require(nameof(value)).Argument().IsNotNull();
+            target.Require(nameof(target)).Argument().IsNotNull();
             value.Require(nameof(value)).Argument().IsNotNull();
 
             return
@@ -72,7 +72,7 @@ namespace wimm.Guardian
         public static Argument<T> IsGreaterThan<T, TValue>(
             this Argument<T> target, TValue value) where T : IComparable<TValue>
         {
-            target.Require(nameof(value)).Argument().IsNotNull();
+            target.Require(nameof(target)).Argument().IsNotNull();
             value.Require(nameof(value)).Argument().IsNotNull();
 
             return
@@ -98,7 +98,7 @@ namespace wimm.Guardian
         public static Argument<T> IsNotGreaterThan<T, TValue>(
             this Argument<T> target, TValue value) where T : IComparable<TValue>
         {
-            target.Require(nameof(value)).Argument().IsNotNull();
+            target.Require(nameof(target)).Argument().IsNotNull();
             value.Require(nameof(value)).Argument().IsNotNull();
 
             return

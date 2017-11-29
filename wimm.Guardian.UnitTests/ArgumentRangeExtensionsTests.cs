@@ -9,16 +9,19 @@ namespace wimm.Guardian.UnitTests
         [Fact(DisplayName = "IsLessThan throws for null target")]
         public void IsLessThan_Throws_For_Null_Target()
         {
-            Assert.Throws<ArgumentNullException>(() => (null as Argument<int>).IsLessThan(0));
+            var ex =
+                 Assert.Throws<ArgumentNullException>(() => (null as Argument<int>).IsLessThan(0));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsLessThan throws for null value")]
         public void IsLessThan_Throws_For_Null_Value()
         {
             var subject = new Mock<ISubject<string>>();
-            subject.SetupGet(s => s.Value).Returns(null as string);
             var argument = new Argument<string>(subject.Object);
-            Assert.Throws<ArgumentNullException>(() => argument.IsLessThan(null as string));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => argument.IsLessThan(null as string));
+            Assert.Equal("value", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsLessThan does not throw when less than.")]
@@ -48,10 +51,23 @@ namespace wimm.Guardian.UnitTests
             Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsLessThan(0));
         }
 
+        [Fact(DisplayName = "IsLessThan thrown exceptions have correct ParamName")]
+        public void IsLessThan_Thrown_Exceptions_Have_Correct_ParamName()
+        {
+            var subject = new Mock<ISubject<int>>();
+            subject.SetupGet(s => s.Name).Returns("arg");
+            subject.SetupGet(s => s.Value).Returns(0);
+            var argument = new Argument<int>(subject.Object);
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsLessThan(0));
+            Assert.Equal("arg", ex.ParamName);
+        }
+
         [Fact(DisplayName = "IsNotLessThan throws for null target")]
         public void IsNotLessThan_Throws_For_Null_Target()
         {
-            Assert.Throws<ArgumentNullException>(() => (null as Argument<int>).IsNotLessThan(0));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => (null as Argument<int>).IsNotLessThan(0));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotLessThan throws for null value")]
@@ -60,7 +76,9 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<string>>();
             subject.SetupGet(s => s.Value).Returns(null as string);
             var argument = new Argument<string>(subject.Object);
-            Assert.Throws<ArgumentNullException>(() => argument.IsNotLessThan(null as string));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => argument.IsNotLessThan(null as string));
+            Assert.Equal("value", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotLessThan throws when less than.")]
@@ -90,10 +108,23 @@ namespace wimm.Guardian.UnitTests
             argument.IsNotLessThan(0);
         }
 
+        [Fact(DisplayName = "IsNotLessThan thrown exceptions have correct ParamName")]
+        public void IsNotLessThan_Thrown_Exceptions_Have_Correct_ParamName()
+        {
+            var subject = new Mock<ISubject<int>>();
+            subject.SetupGet(s => s.Name).Returns("arg");
+            subject.SetupGet(s => s.Value).Returns(0);
+            var argument = new Argument<int>(subject.Object);
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsNotLessThan(1));
+            Assert.Equal("arg", ex.ParamName);
+        }
+
         [Fact(DisplayName = "IsGreaterThan throws for null target")]
         public void IsGreaterThan_Throws_For_Null_Target()
         {
-            Assert.Throws<ArgumentNullException>(() => (null as Argument<int>).IsGreaterThan(0));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => (null as Argument<int>).IsGreaterThan(0));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsGreaterThan throws for null value")]
@@ -102,7 +133,9 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<string>>();
             subject.SetupGet(s => s.Value).Returns(null as string);
             var argument = new Argument<string>(subject.Object);
-            Assert.Throws<ArgumentNullException>(() => argument.IsGreaterThan(null as string));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => argument.IsGreaterThan(null as string));
+            Assert.Equal("value", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsGreaterThan throws when less than.")]
@@ -129,14 +162,26 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<int>>();
             subject.SetupGet(s => s.Value).Returns(1);
             var argument = new Argument<int>(subject.Object);
-             argument.IsGreaterThan(0);
+            argument.IsGreaterThan(0);
+        }
+
+        [Fact(DisplayName = "IsGreaterThan thrown exceptions have correct ParamName")]
+        public void IsGreaterThan_Thrown_Exceptions_Have_Correct_ParamName()
+        {
+            var subject = new Mock<ISubject<int>>();
+            subject.SetupGet(s => s.Name).Returns("arg");
+            subject.SetupGet(s => s.Value).Returns(0);
+            var argument = new Argument<int>(subject.Object);
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsGreaterThan(1));
+            Assert.Equal("arg", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotGreaterThan throws for null target")]
         public void IsNotGreaterThan_Throws_For_Null_Target()
         {
-            Assert.Throws<ArgumentNullException>(
+            var ex = Assert.Throws<ArgumentNullException>(
                 () => (null as Argument<int>).IsNotGreaterThan(0));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotGreaterThan throws for null value")]
@@ -145,7 +190,9 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<string>>();
             subject.SetupGet(s => s.Value).Returns(null as string);
             var argument = new Argument<string>(subject.Object);
-            Assert.Throws<ArgumentNullException>(() => argument.IsNotGreaterThan(null as string));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => argument.IsNotGreaterThan(null as string));
+            Assert.Equal("value", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotGreaterThan does not throw when less than.")]
@@ -173,6 +220,18 @@ namespace wimm.Guardian.UnitTests
             subject.SetupGet(s => s.Value).Returns(1);
             var argument = new Argument<int>(subject.Object);
             Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsNotGreaterThan(0));
+        }
+
+        [Fact(DisplayName = "IsNotGreaterThan thrown exceptions have correct ParamName")]
+        public void IsNotGreaterThan_Thrown_Exceptions_Have_Correct_ParamName()
+        {
+            var subject = new Mock<ISubject<int>>();
+            subject.SetupGet(s => s.Name).Returns("arg");
+            subject.SetupGet(s => s.Value).Returns(1);
+            var argument = new Argument<int>(subject.Object);
+            var ex = 
+                Assert.Throws<ArgumentOutOfRangeException>(() => argument.IsNotGreaterThan(0));
+            Assert.Equal("arg", ex.ParamName);
         }
     }
 }

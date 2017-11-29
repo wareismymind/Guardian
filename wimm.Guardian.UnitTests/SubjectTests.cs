@@ -9,6 +9,7 @@ namespace wimm.Guardian.UnitTests
         public void Subject_Throws_For_Null_Name()
         {
             var ex = Assert.Throws<ArgumentNullException>(() => new Subject<int>(0, null));
+            Assert.Equal("name", ex.ParamName);
         }
 
         [Fact(DisplayName = "Subject has correct name")]

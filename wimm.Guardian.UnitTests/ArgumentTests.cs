@@ -10,11 +10,12 @@ namespace wimm.Guardian.UnitTests
         [Fact(DisplayName = "Argument throws for null subject")]
         public void Argument_Throws_For_Null_Subject()
         {
-            Assert.Throws<ArgumentNullException>(() => new Argument<int>(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => new Argument<int>(null));
+            Assert.Equal("subject", ex.ParamName);
         }
 
         [Fact(DisplayName = "Argument inherits ISubject property values from subject")]
-        public void Argument_Has_Same_Name_Subject()
+        public void Argument_Inherits_Properties_From_ISubject()
         {
             var name = "name";
             var value = 42;
@@ -33,22 +34,38 @@ namespace wimm.Guardian.UnitTests
         [Fact(DisplayName = "IsNotNull throws when Argument value is null")]
         public void IsNotNull_Throws_When_Argument_Value_Is_Null()
         {
-            var name = "name";
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => (null as object).Require(name).Argument().IsNotNull());
-            Assert.Equal(name, ex.ParamName);
+            var subject = new Mock<ISubject<object>>();
+            subject.SetupGet(s => s.Value).Returns(null);
+            var argument = new Argument<object>(subject.Object);
+            Assert.Throws<ArgumentNullException>(() => argument.IsNotNull());
+        }
+
+        [Fact(DisplayName = "IsNotNull thrown exceptions have correct ParamName")]
+        public void IsNotNull_Thrown_Exceptions_Have_Correct_ParamName()
+        {
+            var subject = new Mock<ISubject<object>>();
+            subject.SetupGet(s => s.Name).Returns("arg");
+            subject.SetupGet(s => s.Value).Returns(null);
+            var argument = new Argument<object>(subject.Object);
+            var ex = Assert.Throws<ArgumentNullException>(() => argument.IsNotNull());
+            Assert.Equal("arg", ex.ParamName);
         }
 
         [Fact(DisplayName = "IsNotNull does not throw an when Argument value is not null")]
         public void IsNotNull_Does_Not_Throw_When_Argument_Value_Is_Not_Null()
         {
-            "value".Require("name").Argument().IsNotNull();
+            var subject = new Mock<ISubject<object>>();
+            subject.SetupGet(s => s.Value).Returns(new object());
+            var argument = new Argument<object>(subject.Object);
+            argument.IsNotNull();
         }
 
         [Fact(DisplayName = "IsNotNull returns target")]
         public void IsNotNull_Returns_Target()
         {
-            var argument = "value".Require("name").Argument();
+            var subject = new Mock<ISubject<object>>();
+            subject.SetupGet(s => s.Value).Returns(new object());
+            var argument = new Argument<object>(subject.Object);
             var returned = argument.IsNotNull();
             Assert.Same(argument, returned);
         }
@@ -60,6 +77,7 @@ namespace wimm.Guardian.UnitTests
             var argument = new Argument<object>(subject.Object);
             var ex =
                 Assert.Throws<ArgumentNullException>(() => argument.If(null, s => { }));
+            Assert.Equal("condition", ex.ParamName);
         }
 
         [Fact(DisplayName = "If throws for null consequence")]
@@ -68,6 +86,7 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<object>>();
             var argument = new Argument<object>(subject.Object);
             var ex = Assert.Throws<ArgumentNullException>(() => argument.If(v => true, null));
+            Assert.Equal("consequence", ex.ParamName);
         }
 
         [Fact(DisplayName = "If does not execute consequence when condition is false")]
@@ -106,6 +125,7 @@ namespace wimm.Guardian.UnitTests
             var argument = new Argument<object>(subject.Object);
             var ex = 
                 Assert.Throws<ArgumentNullException>(() => argument.IfNot(null, s => { }));
+            Assert.Equal("condition", ex.ParamName);
         }
 
         [Fact(DisplayName = "IfNot throws for null consequence")]
@@ -114,6 +134,7 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<object>>();
             var argument = new Argument<object>(subject.Object);
             var ex = Assert.Throws<ArgumentNullException>(() => argument.IfNot(v => true, null));
+            Assert.Equal("consequence", ex.ParamName);
         }
 
         [Fact(DisplayName = "IfNot executes consequence when condition is false")]
@@ -148,7 +169,9 @@ namespace wimm.Guardian.UnitTests
         [Fact(DisplayName = "Argument extension throws for null subject.")]
         public void Argument_Extension_Throws_For_Null_Subject()
         {
-            Assert.Throws<ArgumentNullException>(() => (null as ISubject<int>).Argument());
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => (null as ISubject<int>).Argument());
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "Argument extension returns equivalent ISubject")]

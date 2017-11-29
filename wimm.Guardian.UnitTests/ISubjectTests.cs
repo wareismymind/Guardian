@@ -12,6 +12,7 @@ namespace wimm.Guardian.UnitTests
             var subject = null as ISubject<object>;
             var ex =
                 Assert.Throws<ArgumentNullException>(() => subject.If(v => true, s => { }));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "If throws for null condition")]
@@ -20,13 +21,16 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<object>>();
             var ex =
                 Assert.Throws<ArgumentNullException>(() => subject.Object.If(null, s => { }));
+            Assert.Equal("condition", ex.ParamName);
         }
 
         [Fact(DisplayName = "If throws for null consequence")]
         public void If_Throws_For_Null_Consequence()
         {
             var subject = new Mock<ISubject<object>>();
-            var ex = Assert.Throws<ArgumentNullException>(() => subject.Object.If(v => true, null));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => subject.Object.If(v => true, null));
+            Assert.Equal("consequence", ex.ParamName);
         }
 
         [Fact(DisplayName = "If does not execute consequence when condition is false")]
@@ -61,6 +65,7 @@ namespace wimm.Guardian.UnitTests
             var subject = null as ISubject<object>;
             var ex = 
                 Assert.Throws<ArgumentNullException>(() => subject.IfNot(v => true, s => { }));
+            Assert.Equal("target", ex.ParamName);
         }
 
         [Fact(DisplayName = "IfNot throws for null condition")]
@@ -69,13 +74,16 @@ namespace wimm.Guardian.UnitTests
             var subject = new Mock<ISubject<object>>();
             var ex = 
                 Assert.Throws<ArgumentNullException>(() => subject.Object.IfNot(null, s => { }));
+            Assert.Equal("condition", ex.ParamName);
         }
 
         [Fact(DisplayName = "IfNot throws for null consequence")]
         public void IfNot_Throws_For_Null_Consequence()
         {
             var subject = new Mock<ISubject<object>>();
-            var ex = Assert.Throws<ArgumentNullException>(() => subject.Object.IfNot(v => true, null));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => subject.Object.IfNot(v => true, null));
+            Assert.Equal("consequence", ex.ParamName);
         }
 
         [Fact(DisplayName = "IfNot executes consequence when condition is false")]
