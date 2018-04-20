@@ -1,2 +1,2 @@
 # Guardian
-A fluent, extensible interface for guard clauses and argument validation.
+A fluent, extensible framework for argument validation.
