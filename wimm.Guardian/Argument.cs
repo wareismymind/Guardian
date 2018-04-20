@@ -1,39 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace wimm.Guardian
 {
     /// <summary>
-    /// An <see cref="ISubject{T}"/> that is known to be a argument.
+    /// Represents a method argument.
     /// </summary>
     /// <typeparam name="T">The type of the value of the <see cref="Argument{T}"/>.</typeparam>
-    /// <remarks>
-    /// This type exists simply to allow argument specific methods to be defined on instances of
-    /// <see cref="ISubject{T}"/> that are known to be arguments.
-    /// </remarks>
-    public class Argument<T> : ISubject<T>
+    public class Argument<T>
     {
-        private readonly ISubject<T> _subject;
-
         /// <summary>
         /// The name of the <see cref="Argument{T}"/>.
         /// </summary>
-        public string Name => _subject.Name;
+        public string Name { get; private set; }
 
         /// <summary>
         /// The value of the <see cref="Argument{T}"/>.
         /// </summary>
-        public T Value => _subject.Value;
+        public T Value { get; private set; }
 
         /// <summary>
-        /// Creates an <see cref="Argument{T}"/>.
+        /// Creates a <see cref="Argument{T}"/>.
         /// </summary>
-        /// <param name="subject">The underlying <see cref="ISubject{T}"/>.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="name">The name.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="subject"/> is <c>null</c>.
+        /// <paramref name="name"/> is <c>null</c>.
         /// </exception>
-        public Argument(ISubject<T> subject)
+        public Argument(T value, string name)
         {
-            _subject = subject ?? throw new ArgumentNullException(nameof(subject));
+            Value = value;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         /// <summary>
@@ -43,66 +40,38 @@ namespace wimm.Guardian
         /// <returns>The <see cref="Argument{T}"/>.</returns>
         public Argument<T> IsNotNull()
         {
-            // This method was added directly to the type (instead of as an extension targeting
-            // only nullable tyoes) because I couldn't find a generic constraint that included
-            // reference types and nullable primative type (int?, etc.).
-
-            return If(v => v == null, a => throw new ArgumentNullException(a.Name));
+            if (Value == null) throw new ArgumentNullException(Name);
+            return this;
         }
 
-        /// <summary>
-        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is <c>true</c>.
-        /// </summary>
-        /// <param name="condition">The condition to check.</param>
-        /// <param name="consequence">The action to perform.</param>
-        /// <returns>The <see cref="Argument{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="condition"/>, or <paramref name="consequence"/> is <c>null</c>.
-        /// </exception>
-        public Argument<T> If(Func<T, bool> condition, Action<ISubject<T>> consequence)
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public override bool Equals(object obj)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
-            if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
-            return (this as ISubject<T>).If(condition, consequence) as Argument<T>;
+            var subject = obj as Argument<T>;
+            return subject != null &&
+                   Name == subject.Name &&
+                   EqualityComparer<T>.Default.Equals(Value, subject.Value);
         }
 
-        /// <summary>
-        /// Executes <paramref name="consequence"/> if <paramref name="condition"/> is
-        /// <c>false</c>.
-        /// </summary>
-        /// <param name="condition">The condition to check.</param>
-        /// <param name="consequence">The action to perform.</param>
-        /// <returns>The <see cref="Argument{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="condition"/>, or <paramref name="consequence"/> is <c>null</c>.
-        /// </exception>
-        public Argument<T> IfNot(Func<T, bool> condition, Action<ISubject<T>> consequence)
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public override int GetHashCode()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if (condition == null) { throw new ArgumentNullException(nameof(condition)); }
-            if (consequence == null) { throw new ArgumentNullException(nameof(consequence)); }
-            return (this as ISubject<T>).IfNot(condition, consequence) as Argument<T>;
+            var hashCode = -244751520;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<T>.Default.GetHashCode(Value);
+            return hashCode;
         }
-    }
 
-    /// <summary>
-    /// Adds an extension method to <see cref="ISubject{T}"/> to turn the instance into an
-    /// <see cref="Guardian.Argument{T}"/>.
-    /// </summary>
-    public static class ArgumentExtension
-    {
-        /// <summary>
-        /// Gets an <see cref="wimm.Guardian.Argument{T}"/> from an <see cref="ISubject{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the </typeparam>
-        /// <param name="target">The target.</param>
-        /// <returns>An <see cref="Guardian.Argument{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/> is <c>null</c>.
-        /// </exception>
-        public static Argument<T> Argument<T>(this ISubject<T> target)
-        {
-            if (target == null) { throw new ArgumentNullException(nameof(target)); }
-            return new Argument<T>(target);
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static bool operator ==(Argument<T> argument1, Argument<T> argument2) =>
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+            EqualityComparer<Argument<T>>.Default.Equals(argument1, argument2);
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static bool operator !=(Argument<T> argument1, Argument<T> argument2) =>
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+             !(argument1 == argument2);
     }
 }

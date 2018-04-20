@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wimm.Guardian", "wimm.Guardian\wimm.Guardian.csproj", "{9F8CDBEA-FD8D-4FDD-9F86-D01B6FA6AAB3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wimm.Guardian.UnitTests", "wimm.Guardian.UnitTests\wimm.Guardian.UnitTests.csproj", "{6EC78E46-D6FD-436B-9BB5-E95E28C7993D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wimm.Guardian.UnitTests", "wimm.Guardian.UnitTests\wimm.Guardian.UnitTests.csproj", "{682785EF-70A0-401B-8016-B5E0C7D53EA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{9F8CDBEA-FD8D-4FDD-9F86-D01B6FA6AAB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F8CDBEA-FD8D-4FDD-9F86-D01B6FA6AAB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F8CDBEA-FD8D-4FDD-9F86-D01B6FA6AAB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6EC78E46-D6FD-436B-9BB5-E95E28C7993D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6EC78E46-D6FD-436B-9BB5-E95E28C7993D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6EC78E46-D6FD-436B-9BB5-E95E28C7993D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6EC78E46-D6FD-436B-9BB5-E95E28C7993D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{682785EF-70A0-401B-8016-B5E0C7D53EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{682785EF-70A0-401B-8016-B5E0C7D53EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{682785EF-70A0-401B-8016-B5E0C7D53EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{682785EF-70A0-401B-8016-B5E0C7D53EA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
