@@ -3,7 +3,7 @@
 namespace wimm.Guardian
 {
     /// <summary>
-    /// Adds range validations for numeric <see cref="Argument{T}"/> types.
+    /// Adds range validations for comparable <see cref="Argument{T}"/> types.
     /// </summary>
     public static class ArgumentRangeExtensions
     {
