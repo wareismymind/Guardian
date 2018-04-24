@@ -1,23 +1,25 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace wimm.Guardian.UnitTests
 {
     public abstract class NumericExtensionsTests<T>
-        where T : IComparable<T>
     {
         protected abstract T Zero { get; }
         protected abstract T Negative { get; }
         protected abstract T Positive { get; }
+
+        protected abstract Argument<T> CallIsPositive(Argument<T> argument);
+        protected abstract Argument<T> CallIsNegative(Argument<T> argument);
+        protected abstract Argument<T> CallIsNotPositive(Argument<T> argument);
+        protected abstract Argument<T> CallIsNotNegative(Argument<T> argument);
 
         [TestMethod]
         public void IsPositive_NullTarget_Throws()
         {
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
-                    () => (null as Argument<T>).IsPositive());
+                    () => CallIsPositive(null as Argument<T>));
             Assert.AreEqual("target", ex.ParamName);
         }
 
@@ -27,7 +29,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Negative, name).IsPositive());
+                    () => CallIsPositive(new Argument<T>(Negative, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -37,7 +39,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Zero, name).IsPositive());
+                    () => CallIsPositive(new Argument<T>(Zero, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -45,7 +47,7 @@ namespace wimm.Guardian.UnitTests
         public void IsPositive_Positive_ReturnsTarget()
         {
             var argument = new Argument<T>(Positive, "name");
-            Assert.AreSame(argument, argument.IsPositive());
+            Assert.AreSame(argument, CallIsPositive(argument));
         }
 
         [TestMethod]
@@ -53,7 +55,7 @@ namespace wimm.Guardian.UnitTests
         {
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
-                    () => (null as Argument<T>).IsNegative());
+                    () => CallIsNegative(null as Argument<T>));
             Assert.AreEqual("target", ex.ParamName);
         }
 
@@ -61,7 +63,7 @@ namespace wimm.Guardian.UnitTests
         public void IsNegative_Negative_ReturnsTarget()
         {
             var argument = new Argument<T>(Negative, "name");
-            Assert.AreSame(argument, argument.IsNegative());
+            Assert.AreSame(argument, CallIsNegative(argument));
         }
 
         [TestMethod]
@@ -70,7 +72,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Zero, name).IsNegative());
+                    () => CallIsNegative(new Argument<T>(Zero, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -80,7 +82,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Positive, name).IsNegative());
+                    () => CallIsNegative(new Argument<T>(Positive, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -89,7 +91,7 @@ namespace wimm.Guardian.UnitTests
         {
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
-                    () => (null as Argument<T>).IsNotPositive());
+                    () => CallIsNotPositive(null as Argument<T>));
             Assert.AreEqual("target", ex.ParamName);
         }
 
@@ -97,14 +99,14 @@ namespace wimm.Guardian.UnitTests
         public void IsNotPositive_Negative_ReturnsTarget()
         {
             var argument = new Argument<T>(Negative, "name");
-            Assert.AreSame(argument, argument.IsNotPositive());
+            Assert.AreSame(argument, CallIsNotPositive(argument));
         }
 
         [TestMethod]
         public void IsNotPositive_Zero_ReturnsTarget()
         {
             var argument = new Argument<T>(Zero, "name");
-            Assert.AreSame(argument, argument.IsNotPositive());
+            Assert.AreSame(argument, CallIsNotPositive(argument));
         }
 
         [TestMethod]
@@ -113,7 +115,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Positive, name).IsNotPositive());
+                    () => CallIsNotPositive(new Argument<T>(Positive, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -122,7 +124,7 @@ namespace wimm.Guardian.UnitTests
         {
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
-                    () => (null as Argument<T>).IsNotNegative());
+                    () => CallIsNotNegative((null as Argument<T>)));
             Assert.AreEqual("target", ex.ParamName);
         }
 
@@ -132,7 +134,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Negative, name).IsNotNegative());
+                    () => CallIsNotNegative(new Argument<T>(Negative, name)));
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -140,14 +142,14 @@ namespace wimm.Guardian.UnitTests
         public void IsNotNegative_Zero_ReturnsTarget()
         {
             var argument = new Argument<T>(Zero, "name");
-            Assert.AreSame(argument, argument.IsNotNegative());
+            Assert.AreSame(argument, CallIsNotNegative(argument));
         }
 
         [TestMethod]
         public void IsNotNegative_Positive_ReturnsTarget()
         {
             var argument = new Argument<T>(Positive, "name");
-            Assert.AreSame(argument, argument.IsNotNegative());
+            Assert.AreSame(argument, CallIsNotNegative(argument));
         }
     }
 
@@ -157,6 +159,11 @@ namespace wimm.Guardian.UnitTests
         protected override sbyte Negative => -1;
         protected override sbyte Positive => 1;
         protected override sbyte Zero => 0;
+
+        protected override Argument<sbyte> CallIsNegative(Argument<sbyte> argument) => argument.IsNegative();
+        protected override Argument<sbyte> CallIsNotNegative(Argument<sbyte> argument) => argument.IsNotNegative();
+        protected override Argument<sbyte> CallIsPositive(Argument<sbyte> argument) => argument.IsPositive();
+        protected override Argument<sbyte> CallIsNotPositive(Argument<sbyte> argument) => argument.IsNotPositive();
     }
 
     [TestClass]
@@ -165,6 +172,11 @@ namespace wimm.Guardian.UnitTests
         protected override short Negative => -1;
         protected override short Positive => 1;
         protected override short Zero => 0;
+
+        protected override Argument<short> CallIsNegative(Argument<short> argument) => argument.IsNegative();
+        protected override Argument<short> CallIsNotNegative(Argument<short> argument) => argument.IsNotNegative();
+        protected override Argument<short> CallIsPositive(Argument<short> argument) => argument.IsPositive();
+        protected override Argument<short> CallIsNotPositive(Argument<short> argument) => argument.IsNotPositive();
     }
 
     [TestClass]
@@ -173,6 +185,11 @@ namespace wimm.Guardian.UnitTests
         protected override int Negative => -1;
         protected override int Positive => 1;
         protected override int Zero => 0;
+
+        protected override Argument<int> CallIsNegative(Argument<int> argument) => argument.IsNegative();
+        protected override Argument<int> CallIsNotNegative(Argument<int> argument) => argument.IsNotNegative();
+        protected override Argument<int> CallIsPositive(Argument<int> argument) => argument.IsPositive();
+        protected override Argument<int> CallIsNotPositive(Argument<int> argument) => argument.IsNotPositive();
     }
 
     [TestClass]
@@ -181,5 +198,10 @@ namespace wimm.Guardian.UnitTests
         protected override long Negative => -1;
         protected override long Positive => 1;
         protected override long Zero => 0;
+
+        protected override Argument<long> CallIsNegative(Argument<long> argument) => argument.IsNegative();
+        protected override Argument<long> CallIsNotNegative(Argument<long> argument) => argument.IsNotNegative();
+        protected override Argument<long> CallIsPositive(Argument<long> argument) => argument.IsPositive();
+        protected override Argument<long> CallIsNotPositive(Argument<long> argument) => argument.IsNotPositive();
     }
 }
