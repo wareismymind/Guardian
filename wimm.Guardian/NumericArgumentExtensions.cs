@@ -5,30 +5,31 @@ using System.Linq;
 namespace wimm.Guardian
 {
     /// <summary>
-    /// Adds validation methods for <see cref="IComparable{T}"/> <see cref="Argument{T}"/> types
-    /// whose values are numeric types.
+    /// Validation methods for numeric arguments.
     /// </summary>
     /// <remarks>
-    /// Supported <see cref="IComparable{T}"/> types are;
+    /// Supported types are; <see cref="sbyte"/>, <see cref="short"/>, <see cref="int"/>,
+    /// <see cref="long"/>, <see cref="float"/>, and <see cref="double"/>.
     /// </remarks>
     public static class NumericArgumentExtensions
     {
+        // TODO: Don't expose this
+
         /// <summary>
         /// The supported type-parameter <see cref="Type"/> values for the extension methods.
         /// </summary>
         public static IReadOnlyCollection<Type> SupportedTypes { get; } =
             new List<Type>
             {
-                typeof(SByte), typeof(Int16), typeof(Int32), typeof(Int64),
-                typeof(Single), typeof(Double),
+                typeof(sbyte), typeof(short), typeof(int), typeof(long),
+                typeof(float), typeof(double),
             };
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is less than or equal to the zero value for
-        /// <typeparamref name="T"/>.
+        /// <paramref name="target"/> is less than or equal to zero.
         /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
@@ -36,8 +37,7 @@ namespace wimm.Guardian
         /// <exception cref="ArgumentNullException">
         /// <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsPositive<T>(this Argument<T> target)
-            where T : IComparable<T>
+        public static Argument<T> IsPositive<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
@@ -46,10 +46,9 @@ namespace wimm.Guardian
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is greater than or equal to the zero value for
-        /// <typeparamref name="T"/>.
+        /// <paramref name="target"/> is greater than or equal to zero.
         /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
@@ -57,8 +56,7 @@ namespace wimm.Guardian
         /// <exception cref="ArgumentNullException">
         /// <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsNegative<T>(this Argument<T> target)
-            where T : IComparable<T>
+        public static Argument<T> IsNegative<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
@@ -67,9 +65,9 @@ namespace wimm.Guardian
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is greater than the zero value for <typeparamref name="T"/>.
+        /// <paramref name="target"/> is greater than zero.
         /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
@@ -87,9 +85,9 @@ namespace wimm.Guardian
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is less than the zero value for <typeparamref name="T"/>.
+        /// <paramref name="target"/> is less than zero.
         /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.

@@ -4,23 +4,23 @@ using System.Collections.Generic;
 namespace wimm.Guardian
 {
     /// <summary>
-    /// Represents a method argument.
+    /// A method argument.
     /// </summary>
-    /// <typeparam name="T">The type of the value of the <see cref="Argument{T}"/>.</typeparam>
+    /// <typeparam name="T">The type of the arugment.</typeparam>
     public class Argument<T>
     {
         /// <summary>
-        /// The name of the <see cref="Argument{T}"/>.
+        /// The argument name.
         /// </summary>
         public string Name { get; private set; }
 
         /// <summary>
-        /// The value of the <see cref="Argument{T}"/>.
+        /// The argument value.
         /// </summary>
         public T Value { get; private set; }
 
         /// <summary>
-        /// Creates a <see cref="Argument{T}"/>.
+        /// Initializes a new a <see cref="Argument{T}"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="name">The name.</param>
@@ -29,20 +29,25 @@ namespace wimm.Guardian
         /// </exception>
         public Argument(T value, string name)
         {
+            // TODO: Switch parameter order
             Value = value;
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentNullException"/> if the value of the
-        /// <see cref="Argument{T}"/> is null.
+        /// Throws an <see cref="ArgumentNullException"/> if <see cref="Value"/> is <c>null</c>.
         /// </summary>
         /// <returns>The <see cref="Argument{T}"/>.</returns>
         public Argument<T> IsNotNull()
         {
+            // TODO: Find a way to constrain this to nullables or throw for non-nullable types.
             if (Value == null) throw new ArgumentNullException(Name);
             return this;
         }
+
+        // TODO: Remove equality overloads. 
+        // Tests should just verify the member values, 2 arguments with the same name and value
+        // aren't neccessarily the same argument.
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public override bool Equals(object obj)

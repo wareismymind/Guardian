@@ -1,7 +1,7 @@
 ﻿namespace wimm.Guardian
 {
     /// <summary>
-    /// A validation action.
+    /// A validation action for an <see cref="Argument{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of the value to validate.</typeparam>
     /// <param name="value">The value to validate.</param>

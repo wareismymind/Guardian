@@ -3,16 +3,16 @@
 namespace wimm.Guardian
 {
     /// <summary>
-    /// Adds an extension to create an <see cref="Argument{T}"/> from any value.
+    /// Methods to create an <see cref="Argument{T}"/> from a value.
     /// </summary>
     public static class RequireExtension
     {
         /// <summary>
-        /// Gets an <see cref="Argument{T}"/> for the value.
+        /// Gets an <see cref="Argument{T}"/> for <paramref name="target"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the value.</typeparam>
-        /// <param name="target">the target.</param>
-        /// <param name="name">The name for the <see cref="Argument{T}"/>.</param>
+        /// <typeparam name="T">The type of the argument.</typeparam>
+        /// <param name="target">The argument value.</param>
+        /// <param name="name">The argument name.</param>
         /// <returns>An <see cref="Argument{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="name"/> is <c>null</c>.

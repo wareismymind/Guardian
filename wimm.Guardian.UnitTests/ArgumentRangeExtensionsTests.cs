@@ -392,23 +392,23 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsBetween_NullA_Throws()
+        public void IsBetween_NullFloor_Throws()
         {
             var argument = new Argument<string>("", "name");
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsBetween(null, ""));
-            Assert.AreEqual("a", ex.ParamName);
+            Assert.AreEqual("floor", ex.ParamName);
         }
 
         [TestMethod]
-        public void IsBetween_NullB_Throws()
+        public void IsBetween_NullCeiling_Throws()
         {
             var argument = new Argument<string>("", "name");
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsBetween("", null));
-            Assert.AreEqual("b", ex.ParamName);
+            Assert.AreEqual("ceiling", ex.ParamName);
         }
 
         [TestMethod]
@@ -485,23 +485,23 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsNotBetween_NullA_Throws()
+        public void IsNotBetween_NullFloor_Throws()
         {
             var argument = new Argument<string>("", "name");
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsNotBetween(null, ""));
-            Assert.AreEqual("a", ex.ParamName);
+            Assert.AreEqual("floor", ex.ParamName);
         }
 
         [TestMethod]
-        public void IsNotBetween_NullB_Throws()
+        public void IsNotBetween_NullCeiling_Throws()
         {
             var argument = new Argument<string>("", "name");
             var ex =
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsNotBetween("", null));
-            Assert.AreEqual("b", ex.ParamName);
+            Assert.AreEqual("ceiling", ex.ParamName);
         }
 
         [TestMethod]
