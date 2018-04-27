@@ -21,11 +21,9 @@ namespace wimm.Guardian.UnitTests
             var expected = new Argument<int>(name, value);
             Assert.AreEqual(expected, value.Require(name));
         }
-        
+
         [TestMethod]
-        public void Require_AllowsNullSubject()
-        {
+        public void Require_AllowsNullSubject() => 
             Assert.IsNull((null as object).Require("name").Value);
-        }
     }
 }

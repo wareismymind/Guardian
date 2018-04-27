@@ -10,28 +10,20 @@ namespace wimm.Guardian.UnitTests
             new Argument<NonNumericComparable>("name", null);
 
         [TestMethod]
-        public void IsPositive_NonNumericType_ThrowsTypeArgumentException()
-        {
+        public void IsPositive_NonNumericType_ThrowsTypeArgumentException() =>
             AssertMethodThrowsTypeArgumentException(() => _argument.IsPositive());
-        }
 
         [TestMethod]
-        public void IsNegative_NonNumericType_ThrowsTypeArgumentException()
-        {
+        public void IsNegative_NonNumericType_ThrowsTypeArgumentException() => 
             AssertMethodThrowsTypeArgumentException(() => _argument.IsNegative());
-        }
 
         [TestMethod]
-        public void IsNotPositive_NonNumericType_ThrowsTypeArgumentException()
-        {
+        public void IsNotPositive_NonNumericType_ThrowsTypeArgumentException() => 
             AssertMethodThrowsTypeArgumentException(() => _argument.IsNotPositive());
-        }
 
         [TestMethod]
-        public void IsNotNegative_NonNumericType_ThrowsTypeArgumentException()
-        {
+        public void IsNotNegative_NonNumericType_ThrowsTypeArgumentException() => 
             AssertMethodThrowsTypeArgumentException(() => _argument.IsNotNegative());
-        }
 
         private void AssertMethodThrowsTypeArgumentException(
             Action action)
@@ -43,10 +35,8 @@ namespace wimm.Guardian.UnitTests
 
         public class NonNumericComparable : IComparable<NonNumericComparable>
         {
-            public int CompareTo(NonNumericComparable other)
-            {
+            public int CompareTo(NonNumericComparable other) => 
                 throw new NotImplementedException();
-            }
         }
     }
 }
