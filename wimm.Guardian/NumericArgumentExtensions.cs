@@ -36,7 +36,7 @@ namespace wimm.Guardian
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
-            return target.IsGreaterThan(Zero<T>());
+            return target.IsGreaterThan(default(T));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace wimm.Guardian
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
-            return target.IsLessThan(Zero<T>());
+            return target.IsLessThan(default(T));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace wimm.Guardian
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
-            return target.IsNotGreaterThan(Zero<T>());
+            return target.IsNotGreaterThan(default(T));
         }
 
         /// <summary>
@@ -95,11 +95,8 @@ namespace wimm.Guardian
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
             target.Require(nameof(target)).IsNotNull();
-            return target.IsNotLessThan(Zero<T>());
+            return target.IsNotLessThan(default(T));
         }
-
-        private static T Zero<T>() => default(T);
-        private static bool TypeIsSupported<T>() => _supportedTypes.Contains(typeof(T));
 
         private static Argument<Type> IsSupportedTypeParam(this Argument<Type> target)
         {
