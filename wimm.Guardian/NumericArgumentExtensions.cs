@@ -13,16 +13,11 @@ namespace wimm.Guardian
     /// </remarks>
     public static class NumericArgumentExtensions
     {
-        // TODO: Don't expose this
-
-        /// <summary>
-        /// The supported type-parameter <see cref="Type"/> values for the extension methods.
-        /// </summary>
-        public static IReadOnlyCollection<Type> SupportedTypes { get; } =
+        private static IReadOnlyCollection<Type> _supportedTypes { get; } =
             new List<Type>
             {
                 typeof(sbyte), typeof(short), typeof(int), typeof(long),
-                typeof(float), typeof(double),
+                typeof(float), typeof(double)
             };
 
         /// <summary>
@@ -104,12 +99,12 @@ namespace wimm.Guardian
         }
 
         private static T Zero<T>() => default(T);
-        private static bool TypeIsSupported<T>() => SupportedTypes.Contains(typeof(T));
+        private static bool TypeIsSupported<T>() => _supportedTypes.Contains(typeof(T));
 
         private static Argument<Type> IsSupportedTypeParam(this Argument<Type> target)
         {
             target.Require(nameof(target)).IsNotNull();
-            if (!SupportedTypes.Contains(target.Value))
+            if (!_supportedTypes.Contains(target.Value))
                 throw new TypeArgumentException(target.Name, target.Value);
             return target;
         }
