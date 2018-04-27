@@ -240,7 +240,7 @@ namespace wimm.Guardian
             if (target.Value.IsGreaterThan(floor) && target.Value.IsLessThan(ceiling))
                 throw new ArgumentOutOfRangeException(
                     target.Name,
-                    $"Must be less than or equal to {floor} and greater than or equal to {ceiling}.");
+                    $"Must be less than or equal to {floor} or greater than or equal to {ceiling}.");
 
             return target;
         }
