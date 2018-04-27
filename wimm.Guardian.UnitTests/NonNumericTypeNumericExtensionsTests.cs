@@ -7,7 +7,7 @@ namespace wimm.Guardian.UnitTests
     public class NumericExtensionsTestsForNonNumericTypes
     {
         private readonly Argument<NonNumericComparable> _argument =
-            new Argument<NonNumericComparable>(null, "name");
+            new Argument<NonNumericComparable>("name", null);
 
         [TestMethod]
         public void IsPositive_NonNumericType_ThrowsTypeArgumentException()

@@ -27,7 +27,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Negative, name).IsPositive());
+                    () => new Argument<T>(name, Negative).IsPositive());
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -37,14 +37,14 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Zero, name).IsPositive());
+                    () => new Argument<T>(name, Zero).IsPositive());
             Assert.AreEqual(name, ex.ParamName);
         }
 
         [TestMethod]
         public void IsPositive_Positive_ReturnsTarget()
         {
-            var argument = new Argument<T>(Positive, "name");
+            var argument = new Argument<T>("name", Positive);
             Assert.AreSame(argument, argument.IsPositive());
         }
 
@@ -60,7 +60,7 @@ namespace wimm.Guardian.UnitTests
         [TestMethod]
         public void IsNegative_Negative_ReturnsTarget()
         {
-            var argument = new Argument<T>(Negative, "name");
+            var argument = new Argument<T>("name", Negative);
             Assert.AreSame(argument, argument.IsNegative());
         }
 
@@ -70,7 +70,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Zero, name).IsNegative());
+                    () => new Argument<T>(name, Zero).IsNegative());
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -80,7 +80,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Positive, name).IsNegative());
+                    () => new Argument<T>(name, Positive).IsNegative());
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -96,14 +96,14 @@ namespace wimm.Guardian.UnitTests
         [TestMethod]
         public void IsNotPositive_Negative_ReturnsTarget()
         {
-            var argument = new Argument<T>(Negative, "name");
+            var argument = new Argument<T>("name", Negative);
             Assert.AreSame(argument, argument.IsNotPositive());
         }
 
         [TestMethod]
         public void IsNotPositive_Zero_ReturnsTarget()
         {
-            var argument = new Argument<T>(Zero, "name");
+            var argument = new Argument<T>("name", Zero);
             Assert.AreSame(argument, argument.IsNotPositive());
         }
 
@@ -113,7 +113,7 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Positive, name).IsNotPositive());
+                    () => new Argument<T>(name, Positive).IsNotPositive());
             Assert.AreEqual(name, ex.ParamName);
         }
 
@@ -132,21 +132,21 @@ namespace wimm.Guardian.UnitTests
             var name = "name";
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
-                    () => new Argument<T>(Negative, name).IsNotNegative());
+                    () => new Argument<T>(name, Negative).IsNotNegative());
             Assert.AreEqual(name, ex.ParamName);
         }
 
         [TestMethod]
         public void IsNotNegative_Zero_ReturnsTarget()
         {
-            var argument = new Argument<T>(Zero, "name");
+            var argument = new Argument<T>("name", Zero);
             Assert.AreSame(argument, argument.IsNotNegative());
         }
 
         [TestMethod]
         public void IsNotNegative_Positive_ReturnsTarget()
         {
-            var argument = new Argument<T>(Positive, "name");
+            var argument = new Argument<T>("name", Positive);
             Assert.AreSame(argument, argument.IsNotNegative());
         }
     }

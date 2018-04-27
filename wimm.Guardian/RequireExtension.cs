@@ -11,8 +11,8 @@ namespace wimm.Guardian
         /// Gets an <see cref="Argument{T}"/> for <paramref name="target"/>.
         /// </summary>
         /// <typeparam name="T">The type of the argument.</typeparam>
-        /// <param name="target">The argument value.</param>
         /// <param name="name">The argument name.</param>
+        /// <param name="target">The argument value.</param>
         /// <returns>An <see cref="Argument{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="name"/> is <c>null</c>.
@@ -20,7 +20,7 @@ namespace wimm.Guardian
         public static Argument<T> Require<T>(this T target, string name)
         {
             if (name == null) { throw new ArgumentNullException(nameof(name)); }
-            return new Argument<T>(target, name);
+            return new Argument<T>(name, target);
         }
     }
 }

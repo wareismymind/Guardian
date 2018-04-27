@@ -18,7 +18,7 @@ namespace wimm.Guardian.UnitTests
         {
             var name = "name";
             var value = 42;
-            var expected = new Argument<int>(value, name);
+            var expected = new Argument<int>(name, value);
             Assert.AreEqual(expected, value.Require(name));
         }
         

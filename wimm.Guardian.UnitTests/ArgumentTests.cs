@@ -11,27 +11,27 @@ namespace wimm.Guardian.UnitTests
         public void Construct_NullName_Throws()
         {
             var ex =
-                Assert.ThrowsException<ArgumentNullException>(() => new Argument<int>(0, null));
+                Assert.ThrowsException<ArgumentNullException>(() => new Argument<int>(null, 0));
             Assert.AreEqual("name", ex.ParamName);
         }
 
         [TestMethod]
         public void Construct_ValidParameters_Constructs()
         {
-            var _ = new Argument<int>(42, "name");
+            var _ = new Argument<int>("name", 42);
         }
 
         [TestMethod]
         public void Construct_NullValue_Constructs()
         {
-            var _ = new Argument<string>(null, "name");
+            var _ = new Argument<string>("name", null);
         }
 
         [TestMethod]
         public void Name_HasCorrectValue()
         {
             var name = "name";
-            var argument = new Argument<int>(42, name);
+            var argument = new Argument<int>(name, 42);
             Assert.AreEqual(name, argument.Name);
         }
 
@@ -39,7 +39,7 @@ namespace wimm.Guardian.UnitTests
         public void Value_ValueType_HasCorrectValue()
         {
             var value = 42;
-            var argument = new Argument<int>(value, "name");
+            var argument = new Argument<int>("name", value);
             Assert.AreEqual(value, argument.Value);
         }
 
@@ -47,21 +47,21 @@ namespace wimm.Guardian.UnitTests
         public void Value_ReferenceType_ReferenceEqualsArgument()
         {
             var value = new object();
-            var argument = new Argument<object>(value, "name");
+            var argument = new Argument<object>("name", value);
             Assert.AreSame(value, argument.Value);
         }
 
         [TestMethod]
         public void Value_Null_IsNull()
         {
-            var argument = new Argument<object>(null, "name");
+            var argument = new Argument<object>("name", null);
             Assert.IsNull(argument.Value);
         }
 
         [TestMethod]
         public void IsNotNull_ValueIsNull_Throws()
         {
-            var argument = new Argument<object>(null, "name");
+            var argument = new Argument<object>("name", null);
             var ex = Assert.ThrowsException<ArgumentNullException>(() => argument.IsNotNull());
             Assert.AreEqual("name", ex.ParamName);
         }
@@ -69,7 +69,7 @@ namespace wimm.Guardian.UnitTests
         [TestMethod]
         public void IsNotNull_ValueIsNotNull_ReturnsSelf()
         {
-            var argument = new Argument<object>(new object(), "name");
+            var argument = new Argument<object>("name", new object());
             Assert.AreSame(argument, argument.IsNotNull());
         }
     }

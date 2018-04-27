@@ -27,11 +27,10 @@ namespace wimm.Guardian
         /// <exception cref="ArgumentNullException">
         /// <paramref name="name"/> is <c>null</c>.
         /// </exception>
-        public Argument(T value, string name)
+        public Argument(string name, T value)
         {
-            // TODO: Switch parameter order
-            Value = value;
             Name = name ?? throw new ArgumentNullException(nameof(name));
+            Value = value;
         }
 
         /// <summary>
