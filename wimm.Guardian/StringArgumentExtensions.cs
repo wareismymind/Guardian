@@ -6,48 +6,65 @@ using System.Threading.Tasks;
 
 namespace wimm.Guardian
 {
+
+    /// <summary>
+    /// TODO:CN
+    /// </summary>
     public static class StringArgumentExtensions
     {
+        
         /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if the value of <paramref name="target"/>
         /// 
         /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static Argument<string> IsNotNullOrWhitespace(this Argument<string> target)
         {
-            target.Require(nameof(target)).IsNotNull();
             target.IsNotNull();
 
-            return target.IsNotNullOrWhitespaceUnsafe();
-        }
+            if (target.Value.IsWhiteSpace())
+                throw new ArgumentException(
+                    $"{target.Name} must contain at least one non whitespace character");
 
+            return target;
+                
+        }
+        
+        /// <summary>
+        /// TODO:CN
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static Argument<string> IsNotWhitespace(this Argument<string> target)
         {
-            target.Require(nameof(target)).IsNotNull();
-
             if (target.Value == null)
                 return target;
 
-            return target.IsNotNullOrWhitespaceUnsafe();
+            if (target.Value.IsWhiteSpace())
+                throw new ArgumentException(
+                    $"{target.Name} must contain at least one non whitespace character");
+
+            return target;
         }
 
+        /// <summary>
+        /// TODO:CN
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public static Argument<string> IsNotEmpty(this Argument<string> target)
         {
-            target.Require(nameof(target)).IsNotNull();
-
             if (target.Value == string.Empty)
-                throw new ArgumentException($"{target.Name} must not be whitespace.");
+                throw new ArgumentException($"{target.Name} must not be empty.");
 
             return target;
         }
 
 
-
-        //CN: Unsafe because we're not allowing for target to be null;
-        private static Argument<string> IsNotNullOrWhitespaceUnsafe(this Argument<string> target)
+        private static bool IsWhiteSpace(this string s)
         {
-            if (string.IsNullOrWhiteSpace(target.Value))
-                throw new ArgumentException($"{target.Name} Must contain one or more non-whitespace characters");
-
-            return target;
+            return s.All(x => char.IsWhiteSpace(x));
         }
 
     }
