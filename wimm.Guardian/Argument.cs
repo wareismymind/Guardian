@@ -37,7 +37,7 @@ namespace wimm.Guardian
         /// Throws an <see cref="ArgumentNullException"/> if <see cref="Value"/> is <c>null</c>.
         /// </summary>
         /// <exception cref="InvalidOperationException"> 
-        /// if defualt of <typeparamref name="T"/> is not null
+        /// The default value of <typeparamref name="T"/> is not null.
         /// </exception>
         /// <returns>The <see cref="Argument{T}"/>.</returns>
         public Argument<T> IsNotNull()
