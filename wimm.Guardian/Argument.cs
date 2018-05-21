@@ -39,6 +39,9 @@ namespace wimm.Guardian
         /// <returns>The <see cref="Argument{T}"/>.</returns>
         public Argument<T> IsNotNull()
         {
+            if (default(T) != null)
+                throw new InvalidOperationException($"{nameof(T)} must be nullable to check for null");
+
             // TODO: Find a way to constrain this to nullables or throw for non-nullable types.
             if (Value == null) throw new ArgumentNullException(Name);
             return this;
