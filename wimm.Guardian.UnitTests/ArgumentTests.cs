@@ -66,11 +66,5 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual("name", ex.ParamName);
         }
         
-        [TestMethod]
-        public void IsNotNull_ValueIsNotNull_ReturnsSelf()
-        {
-            var argument = new Argument<object>("name", new object());
-            Assert.AreSame(argument, argument.IsNotNull());
-        }
     }
 }

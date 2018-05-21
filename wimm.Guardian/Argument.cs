@@ -7,7 +7,7 @@ namespace wimm.Guardian
     /// A method argument.
     /// </summary>
     /// <typeparam name="T">The type of the arugment.</typeparam>
-    public class Argument<T>
+    public struct Argument<T>
     {
         /// <summary>
         /// The argument name.
@@ -52,10 +52,14 @@ namespace wimm.Guardian
         public override bool Equals(object obj)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            var subject = obj as Argument<T>;
-            return subject != null &&
-                   Name == subject.Name &&
+
+            if (obj is Argument<T> subject)
+            {
+                return Name == subject.Name &&
                    EqualityComparer<T>.Default.Equals(Value, subject.Value);
+            }
+
+            return false;
         }
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

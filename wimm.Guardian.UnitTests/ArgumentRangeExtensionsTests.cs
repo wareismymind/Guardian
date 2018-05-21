@@ -8,15 +8,6 @@ namespace wimm.Guardian.UnitTests
     public class ArgumentRangeExtensionsTests
     {
         [TestMethod]
-        public void IsLessThan_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsLessThan(0));
-            Assert.AreEqual("target", ex.ParamName);
-        }
-
-        [TestMethod]
         public void IsLessThan_NullArgumentValue_Throws()
         {
             var argument = new Argument<string>("name", null);
@@ -31,13 +22,6 @@ namespace wimm.Guardian.UnitTests
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsLessThan(null as string));
             Assert.AreEqual("value", ex.ParamName);
-        }
-
-        [TestMethod]
-        public void IsLessThan_ArgumentValueIsLessThanValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsLessThan(1));
         }
 
         [TestMethod]
@@ -60,14 +44,6 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(name, ex.ParamName);
         }
 
-        [TestMethod]
-        public void IsNotLessThan_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsNotLessThan(0));
-            Assert.AreEqual("target", ex.ParamName);
-        }
 
         [TestMethod]
         public void IsNotLessThan_NullArgumentValue_Throws()
@@ -94,29 +70,6 @@ namespace wimm.Guardian.UnitTests
             var ex =
                 Assert.ThrowsException<ArgumentOutOfRangeException>(() => argument.IsNotLessThan(1));
             Assert.AreEqual(name, ex.ParamName);
-        }
-
-        [TestMethod]
-        public void IsNotLessThan_ArgumentValueEqualsValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsNotLessThan(0));
-        }
-
-        [TestMethod]
-        public void IsNotLessThan_ArgumentValueIsGreaterThanValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 1);
-            Assert.AreSame(argument, argument.IsNotLessThan(0));
-        }
-
-        [TestMethod]
-        public void IsGreaterThan_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsGreaterThan(0));
-            Assert.AreEqual("target", ex.ParamName);
         }
 
         [TestMethod]
@@ -157,22 +110,6 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsGreaterThan_ArgumentValueIsGreaterThanValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 1);
-            Assert.AreSame(argument, argument.IsGreaterThan(0));
-        }
-
-        [TestMethod]
-        public void IsNotGreaterThan_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsNotGreaterThan(0));
-            Assert.AreEqual("target", ex.ParamName);
-        }
-
-        [TestMethod]
         public void IsNotGreaterThan_NullArgumentValue_Throws()
         {
             var argument = new Argument<string>("name", null);
@@ -190,20 +127,6 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsNotGreaterThan_ArgumentValueIsLessThanValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsNotGreaterThan(1));
-        }
-
-        [TestMethod]
-        public void IsNotGreaterThan_ArgumentValueEqualsValue_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsNotGreaterThan(0));
-        }
-
-        [TestMethod]
         public void IsNotGreaterThan_ArgumentValueIsGreaterThanValue_Throws()
         {
             var name = "name";
@@ -213,14 +136,6 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(name, ex.ParamName);
         }
 
-        [TestMethod]
-        public void IsInRange_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsInRange(0, 1));
-            Assert.AreEqual("target", ex.ParamName);
-        }
 
         [TestMethod]
         public void IsInRange_NullArgumentValue_Throws()
@@ -261,27 +176,6 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsInRange_ArgumentValueEqualsMin_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 1);
-            Assert.AreSame(argument, argument.IsInRange(1, 3));
-        }
-
-        [TestMethod]
-        public void IsInRange_ArgumentValueIsBetweenMinAndMax_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 2);
-            Assert.AreSame(argument, argument.IsInRange(1, 3));
-        }
-
-        [TestMethod]
-        public void IsInRange_ArgumentValueEqualsMax_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 3);
-            Assert.AreSame(argument, argument.IsInRange(1, 3));
-        }
-
-        [TestMethod]
         public void IsInRange_ArgumentValueIsGreaterThanMax_Throws()
         {
             var name = "name";
@@ -290,15 +184,6 @@ namespace wimm.Guardian.UnitTests
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
                     () => argument.IsInRange(1, 3));
             Assert.AreEqual(name, ex.ParamName);
-        }
-
-        [TestMethod]
-        public void IsNotInRange_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsNotInRange(0, 1));
-            Assert.AreEqual("target", ex.ParamName);
         }
 
         [TestMethod]
@@ -326,13 +211,6 @@ namespace wimm.Guardian.UnitTests
                 Assert.ThrowsException<ArgumentNullException>(
                     () => argument.IsNotInRange("", null));
             Assert.AreEqual("max", ex.ParamName);
-        }
-
-        [TestMethod]
-        public void IsNotInRange_ArgumentValueIsLessThanMin_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsNotInRange(1, 3));
         }
 
         [TestMethod]
@@ -366,22 +244,6 @@ namespace wimm.Guardian.UnitTests
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
                     () => argument.IsNotInRange(1, 3));
             Assert.AreEqual(name, ex.ParamName);
-        }
-
-        [TestMethod]
-        public void IsNotInRange_ArgumentValueIsGreaterThanMax_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 4);
-            Assert.AreSame(argument, argument.IsNotInRange(1, 3));
-        }
-
-        [TestMethod]
-        public void IsBetween_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsBetween(0, 1));
-            Assert.AreEqual("target", ex.ParamName);
         }
 
         [TestMethod]
@@ -434,13 +296,6 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsBetween_ArgumentValueIsBetweenAAndB_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 2);
-            Assert.AreSame(argument, argument.IsBetween(1, 3));
-        }
-
-        [TestMethod]
         public void IsBetween_ArgumentValueEqualsB_Throws()
         {
             var name = "name";
@@ -462,14 +317,6 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(name, ex.ParamName);
         }
 
-        [TestMethod]
-        public void IsNotBetween_NullTarget_Throws()
-        {
-            var ex =
-                 Assert.ThrowsException<ArgumentNullException>(
-                     () => (null as Argument<int>).IsNotBetween(0, 1));
-            Assert.AreEqual("target", ex.ParamName);
-        }
 
         [TestMethod]
         public void IsNotBetween_NullArgumentValue_Throws()
@@ -499,20 +346,6 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
-        public void IsNotBetween_ArgumentValueIsLessThanA_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 0);
-            Assert.AreSame(argument, argument.IsNotBetween(1, 3));
-        }
-
-        [TestMethod]
-        public void IsNotBetween_ArgumentValueEqualsA_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 1);
-            Assert.AreSame(argument, argument.IsNotBetween(1, 3));
-        }
-
-        [TestMethod]
         public void IsNotBetween_ArgumentValueIsBetweenAAndB_Throws()
         {
             var name = "name";
@@ -523,18 +356,5 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(name, ex.ParamName);
         }
 
-        [TestMethod]
-        public void IsNotBetween_ArgumentValueEqualsB_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 3);
-            Assert.AreSame(argument, argument.IsNotBetween(1, 3));
-        }
-
-        [TestMethod]
-        public void IsNotBetween_ArgumentValueIsGreaterThanB_ReturnsTarget()
-        {
-            var argument = new Argument<int>("name", 4);
-            Assert.AreSame(argument, argument.IsNotBetween(1, 3));
-        }
     }
 }
