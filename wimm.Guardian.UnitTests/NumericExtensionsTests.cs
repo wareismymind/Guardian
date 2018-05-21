@@ -12,7 +12,6 @@ namespace wimm.Guardian.UnitTests
         protected abstract T Negative { get; }
         protected abstract T Positive { get; }
 
-
         [TestMethod]
         public void IsPositive_Negative_Throws()
         {
@@ -31,6 +30,20 @@ namespace wimm.Guardian.UnitTests
                 Assert.ThrowsException<ArgumentOutOfRangeException>(
                     () => new Argument<T>(name, Zero).IsPositive());
             Assert.AreEqual(name, ex.ParamName);
+        }
+
+        [TestMethod]
+        public void IsPositive_Positive_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Positive);
+            Assert.AreEqual(argument, argument.IsPositive());
+        }
+
+        [TestMethod]
+        public void IsNegative_Negative_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Negative);
+            Assert.AreEqual(argument, argument.IsNegative());
         }
 
         [TestMethod]
@@ -54,6 +67,20 @@ namespace wimm.Guardian.UnitTests
         }
 
         [TestMethod]
+        public void IsNotPositive_Negative_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Negative);
+            Assert.AreEqual(argument, argument.IsNotPositive());
+        }
+
+        [TestMethod]
+        public void IsNotPositive_Zero_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Zero);
+            Assert.AreEqual(argument, argument.IsNotPositive());
+        }
+
+        [TestMethod]
         public void IsNotPositive_Positive_Throws()
         {
             var name = "name";
@@ -73,6 +100,19 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(name, ex.ParamName);
         }
 
+        [TestMethod]
+        public void IsNotNegative_Zero_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Zero);
+            Assert.AreEqual(argument, argument.IsNotNegative());
+        }
+
+        [TestMethod]
+        public void IsNotNegative_Positive_ReturnsTarget()
+        {
+            var argument = new Argument<T>("name", Positive);
+            Assert.AreEqual(argument, argument.IsNotNegative());
+        }
     }
 
     [TestClass]
