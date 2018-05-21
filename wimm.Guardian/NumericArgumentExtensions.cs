@@ -29,9 +29,6 @@ namespace wimm.Guardian
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/> is <c>null</c>.
-        /// </exception>
         public static Argument<T> IsPositive<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
@@ -47,9 +44,6 @@ namespace wimm.Guardian
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/> is <c>null</c>.
-        /// </exception>
         public static Argument<T> IsNegative<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
@@ -64,9 +58,6 @@ namespace wimm.Guardian
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/> is <c>null</c>.
         /// </exception>
         public static Argument<T> IsNotPositive<T>(this Argument<T> target)
             where T : IComparable<T>
@@ -84,9 +75,6 @@ namespace wimm.Guardian
         /// <exception cref="TypeArgumentException">
         /// <typeparamref name="T"/> is not a valid numeric type.
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/> is <c>null</c>.
-        /// </exception>
         public static Argument<T> IsNotNegative<T>(this Argument<T> target)
             where T : IComparable<T>
         {
@@ -96,6 +84,7 @@ namespace wimm.Guardian
 
         private static Argument<Type> IsSupportedTypeParam(this Argument<Type> target)
         {
+            
             if (!_supportedTypes.Contains(target.Value))
                 throw new TypeArgumentException(target.Name, target.Value);
             return target;

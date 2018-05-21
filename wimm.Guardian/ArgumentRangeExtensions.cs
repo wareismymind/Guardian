@@ -15,9 +15,6 @@ namespace wimm.Guardian
         /// <param name="target">The target.</param>
         /// <param name="value">The <typeparamref name="T"/> to compare against.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, or <paramref name="value"/> is <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -41,9 +38,6 @@ namespace wimm.Guardian
         /// <param name="target">The target.</param>
         /// <param name="value">The <typeparamref name="T"/> to compare against.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, or <paramref name="value"/> is <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -67,9 +61,6 @@ namespace wimm.Guardian
         /// <param name="target">The target.</param>
         /// <param name="value">The <typeparamref name="T"/> to compare against.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, or <paramref name="value"/> is <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -93,9 +84,6 @@ namespace wimm.Guardian
         /// <param name="target">The target.</param>
         /// <param name="value">The <typeparamref name="T"/> to compare against.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, or <paramref name="value"/> is <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -121,10 +109,6 @@ namespace wimm.Guardian
         /// <param name="min">The minimum allowed value for <paramref name="target"/>.</param>
         /// <param name="max">The maximum allowed value for <paramref name="target"/>.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, <paramref name="min"/>, or <paramref name="max"/> is
-        /// <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -148,10 +132,6 @@ namespace wimm.Guardian
         /// <param name="min">The minimum allowed value for <paramref name="target"/>.</param>
         /// <param name="max">The maximum allowed value for <paramref name="target"/>.</param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, <paramref name="min"/>, or <paramref name="max"/> is
-        /// <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -184,10 +164,6 @@ namespace wimm.Guardian
         /// The value that <paramref name="target"/> must be less than.
         /// </param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, <paramref name="floor"/>, or <paramref name="ceiling"/> is
-        /// <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
@@ -215,10 +191,6 @@ namespace wimm.Guardian
         /// The ceiling of the range that <paramref name="target"/>'s value must not be in.
         /// </param>
         /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="target"/>, <paramref name="floor"/>, or <paramref name="ceiling"/> is
-        /// <c>null</c>.
-        /// </exception>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
