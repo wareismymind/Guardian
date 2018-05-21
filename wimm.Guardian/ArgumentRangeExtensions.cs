@@ -24,9 +24,8 @@ namespace wimm.Guardian
         public static Argument<T> IsLessThan<T>(this Argument<T> target, T value)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            value.Require(nameof(value)).IsNotNull();
+            value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (!target.Value.IsLessThan(value))
                 throw new ArgumentOutOfRangeException(target.Name, $"Must be less than {value}.");
@@ -51,9 +50,8 @@ namespace wimm.Guardian
         public static Argument<T> IsNotLessThan<T>(this Argument<T> target, T value)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            value.Require(nameof(value)).IsNotNull();
+            value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (target.Value.IsLessThan(value))
                 throw new ArgumentOutOfRangeException(target.Name, $"Must not be less than {value}.");
@@ -78,9 +76,8 @@ namespace wimm.Guardian
         public static Argument<T> IsGreaterThan<T>(this Argument<T> target, T value)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            value.Require(nameof(value)).IsNotNull();
+            value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (!target.Value.IsGreaterThan(value))
                 throw new ArgumentOutOfRangeException(target.Name, $"Must be greater than {value}.");
@@ -105,9 +102,8 @@ namespace wimm.Guardian
         public static Argument<T> IsNotGreaterThan<T>(this Argument<T> target, T value)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            value.Require(nameof(value)).IsNotNull();
+            value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (target.Value.IsGreaterThan(value))
                 throw new ArgumentOutOfRangeException(target.Name, $"Must not be greater than {value}.");
@@ -135,10 +131,9 @@ namespace wimm.Guardian
         public static Argument<T> IsInRange<T>(this Argument<T> target, T min, T max)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            min.Require(nameof(min)).IsNotNull();
-            max.Require(nameof(max)).IsNotNull();
+            min.Require(nameof(min)).IsNotNullIfNullable();
+            max.Require(nameof(max)).IsNotNullIfNullable();
 
             return target.IsNotLessThan(min).IsNotGreaterThan(max);
         }
@@ -163,10 +158,9 @@ namespace wimm.Guardian
         public static Argument<T> IsNotInRange<T>(this Argument<T> target, T min, T max)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            min.Require(nameof(min)).IsNotNull();
-            max.Require(nameof(max)).IsNotNull();
+            min.Require(nameof(min)).IsNotNullIfNullable();
+            max.Require(nameof(max)).IsNotNullIfNullable();
 
             if (!(target.Value.IsLessThan(min) || target.Value.IsGreaterThan(max)))
                 throw new ArgumentOutOfRangeException(
@@ -200,10 +194,9 @@ namespace wimm.Guardian
         public static Argument<T> IsBetween<T>(this Argument<T> target, T floor, T ceiling)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            floor.Require(nameof(floor)).IsNotNull();
-            ceiling.Require(nameof(ceiling)).IsNotNull();
+            floor.Require(nameof(floor)).IsNotNullIfNullable();
+            ceiling.Require(nameof(ceiling)).IsNotNullIfNullable(); 
 
             return target.IsGreaterThan(floor).IsLessThan(ceiling);
         }
@@ -232,10 +225,10 @@ namespace wimm.Guardian
         public static Argument<T> IsNotBetween<T>(this Argument<T> target, T floor, T ceiling)
             where T : IComparable<T>
         {
-            target.Require(nameof(target)).IsNotNull();
             target.AssertArgumentIsComparable();
-            floor.Require(nameof(floor)).IsNotNull();
-            ceiling.Require(nameof(ceiling)).IsNotNull();
+
+            floor.Require(nameof(floor)).IsNotNullIfNullable();
+            ceiling.Require(nameof(ceiling)).IsNotNullIfNullable();
 
             if (target.Value.IsGreaterThan(floor) && target.Value.IsLessThan(ceiling))
                 throw new ArgumentOutOfRangeException(
@@ -257,5 +250,12 @@ namespace wimm.Guardian
                 throw new InvalidOperationException(
                     $"Cannot compare against null-valued Argument.");
         }
+
+        private static void IsNotNullIfNullable<T>(this Argument<T> argument)
+        {
+            if (default(T) == null)
+                argument.IsNotNull();
+        }
+
     }
 }
