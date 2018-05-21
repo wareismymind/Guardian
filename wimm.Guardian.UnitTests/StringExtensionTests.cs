@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace wimm.Guardian.UnitTests
 {
     [TestClass]
-    public class StringArgumentTests
+    public class StringExtensionTests
     {
         private const string _name = "paramName";
 
