@@ -70,7 +70,7 @@ namespace wimm.Guardian.UnitTests
         public void IsNotNull_ValueIsNotNull_ReturnsSelf()
         {
             var argument = new Argument<object>("name", new object());
-            Assert.AreSame(argument, argument.IsNotNull());
+            Assert.AreEqual(argument, argument.IsNotNull());
         }
     }
 }
