@@ -35,7 +35,6 @@ namespace wimm.Guardian
         public static Argument<T> IsPositive<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
-            target.Require(nameof(target)).IsNotNull();
             return target.IsGreaterThan(default(T));
         }
 
@@ -54,7 +53,6 @@ namespace wimm.Guardian
         public static Argument<T> IsNegative<T>(this Argument<T> target) where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
-            target.Require(nameof(target)).IsNotNull();
             return target.IsLessThan(default(T));
         }
 
@@ -74,7 +72,6 @@ namespace wimm.Guardian
             where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
-            target.Require(nameof(target)).IsNotNull();
             return target.IsNotGreaterThan(default(T));
         }
 
@@ -94,13 +91,11 @@ namespace wimm.Guardian
             where T : IComparable<T>
         {
             typeof(T).Require(nameof(T)).IsSupportedTypeParam();
-            target.Require(nameof(target)).IsNotNull();
             return target.IsNotLessThan(default(T));
         }
 
         private static Argument<Type> IsSupportedTypeParam(this Argument<Type> target)
         {
-            target.Require(nameof(target)).IsNotNull();
             if (!_supportedTypes.Contains(target.Value))
                 throw new TypeArgumentException(target.Name, target.Value);
             return target;
