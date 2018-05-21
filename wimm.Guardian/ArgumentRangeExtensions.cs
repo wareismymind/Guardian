@@ -251,11 +251,6 @@ namespace wimm.Guardian
                     $"Cannot compare against null-valued Argument.");
         }
 
-        private static void IsNotNullIfNullable<T>(this Argument<T> argument)
-        {
-            if (default(T) == null)
-                argument.IsNotNull();
-        }
 
     }
 }
