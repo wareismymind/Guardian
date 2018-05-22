@@ -66,7 +66,6 @@ namespace wimm.Guardian
             if (!regex.IsMatch(target.Value))
                 throw new ArgumentException($"{target.Name} must match pattern {regex}", target.Name);
 
-
             return target;
         }
     }

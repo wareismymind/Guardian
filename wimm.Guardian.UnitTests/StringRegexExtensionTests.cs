@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace wimm.Guardian.UnitTests
 {
@@ -21,7 +17,7 @@ namespace wimm.Guardian.UnitTests
             var ex = Assert.ThrowsException<ArgumentNullException>(
                 () => _validArgument.IsMatch(null as string));
 
-            Assert.AreEqual(_validArgument.Name, ex.ParamName);
+            Assert.AreEqual("pattern", ex.ParamName);
         }
 
         [TestMethod]
@@ -39,7 +35,7 @@ namespace wimm.Guardian.UnitTests
             var ex = Assert.ThrowsException<ArgumentException>(
                 () => _validArgument.IsMatch("blerg"));
 
-            Assert.AreEqual("pattern", ex.ParamName);
+            Assert.AreEqual("my_name", ex.ParamName);
         }
 
         [TestMethod]
@@ -56,7 +52,7 @@ namespace wimm.Guardian.UnitTests
             var ex = Assert.ThrowsException<ArgumentNullException>(
                 () => _validArgument.IsMatch(null as Regex));
 
-            Assert.AreEqual(_validArgument.Name, ex.ParamName);
+            Assert.AreEqual("regex", ex.ParamName);
         }
 
         [TestMethod]
@@ -65,13 +61,13 @@ namespace wimm.Guardian.UnitTests
             var ex = Assert.ThrowsException<ArgumentException>(
                 () => _validArgument.IsMatch(new Regex("blerg")));
 
-            Assert.AreEqual("pattern", ex.ParamName);
+            Assert.AreEqual(_validArgument.Name, ex.ParamName);
         }
 
         [TestMethod]
         public void IsMatchRegex_IsValid_ReturnsTarget()
         {
-            var res =_validArgument.IsMatch(new Regex(_validArgument.Name));
+            var res =_validArgument.IsMatch(new Regex(_validArgument.Value));
 
             Assert.AreEqual(_validArgument, res);
         }
