@@ -56,8 +56,12 @@ namespace wimm.Guardian
         /// <returns> 
         /// An <see cref="Argument{T}"/> equivalent to <paramref name="target"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException"> If</exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"> 
+        /// <paramref name="regex"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentException">
+        /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> does not match
+        /// the regex given by <paramref name="regex"/>
+        /// </exception>
         public static Argument<string> IsMatch(this Argument<string> target, Regex regex)
         {
             regex.Require(nameof(regex)).IsNotNull();
