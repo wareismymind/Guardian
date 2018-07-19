@@ -76,9 +76,11 @@ namespace wimm.Guardian
         /// </exception>
         public static Argument<string> IsNotEmpty(this Argument<string> target)
         {
+            if (target.Value == null)
+                return target;
+
             if (target.Value.Length == 0)
-                throw new ArgumentException($"{target.Name} must not be empty.",
-                    target.Name);
+                throw new ArgumentException($"{target.Name} must not be empty.", target.Name);
 
             return target;
         }
