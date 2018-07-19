@@ -15,7 +15,7 @@ namespace wimm.Guardian.UnitTests
         public void IsDefined_ValueUndefined_Throws()
         {
             var underTest = new Argument<TestEnum>("Doot", (TestEnum)(int.MaxValue));
-            Assert.ThrowsException<InvalidEnumArgumentException>(() => underTest.IsDefined());
+            Assert.ThrowsException<EnumArgumentOutOfRangeException>(() => underTest.IsDefined());
         }
 
         [TestMethod]
