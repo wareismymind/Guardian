@@ -11,12 +11,12 @@ namespace wimm.Guardian
         /// <summary>
         /// The argument name.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// The argument value.
         /// </summary>
-        public T Value { get; private set; }
+        public T Value { get; }
 
         /// <summary>
         /// Initializes a new a <see cref="Argument{T}"/>.
