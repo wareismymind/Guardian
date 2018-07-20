@@ -14,11 +14,19 @@ namespace wimm.Guardian
     public static class EnumArgumentExtensions
     {
         /// <summary>
-        /// TODO:CN
+        /// Throws an <see cref="EnumArgumentOutOfRangeException"/> if the enum argument does not
+        /// correspond with the enum's predefined values
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="argument"></param>
-        /// <returns></returns>
+        /// <typeparam name="T"> The enum type to be tested </typeparam>
+        /// <param name="argument"> And argument containing the value to be checked </param>
+        /// <returns> A copy of the input <see cref="Argument{T}"/> </returns>
+        /// <exception cref="TypeArgumentException"> 
+        /// The input type <typeparamref name="T"/> is not an enum type
+        /// </exception>
+        /// <exception cref="EnumArgumentOutOfRangeException">
+        /// The value of <paramref name="argument"/> does not match the value of any defined value 
+        /// of <paramref name="argument"/>
+        /// </exception>
         public static Argument<T> IsDefined<T>(this Argument<T> argument) where T : struct, IComparable
         {
             if (!typeof(T).GetTypeInfo().IsEnum)

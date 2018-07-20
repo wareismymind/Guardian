@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace wimm.Guardian
 {
     /// <summary>
-    /// TODO:CN
+    /// Validation arguments for strings that involve regex matching
     /// </summary>
     public static class StringArgumentRegexExtensions
     {
