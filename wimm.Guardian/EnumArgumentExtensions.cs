@@ -33,7 +33,7 @@ namespace wimm.Guardian
             if (!typeof(T).GetTypeInfo().IsEnum)
                 throw new TypeArgumentException(nameof(T), typeof(T));
 
-            if (!Enum.IsDefined(argument.Value.GetType(), argument.Value))
+            if (!Enum.IsDefined(typeof(T), argument.Value))
                 throw new EnumArgumentOutOfRangeException(
                    argument.Name, typeof(T), (int)(ValueType)argument.Value);
 
