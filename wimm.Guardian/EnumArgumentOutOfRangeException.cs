@@ -10,7 +10,7 @@ namespace wimm.Guardian
     /// <summary>
     /// An exception to indicate that an enum arguments values fall outside the set values for that enum
     /// </summary>
-    public class EnumArgumentOutOfRangeException : Exception
+    public class EnumArgumentOutOfRangeException : ArgumentException
     {
         private const string _defaultMessage = "An enum value was provided as an argument but the value" +
             "was not a value of the enumeration";
