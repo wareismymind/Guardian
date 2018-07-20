@@ -12,24 +12,24 @@ namespace wimm.Guardian.UnitTests
     public class EnumArgumentExtensionsTests
     {
         [TestMethod]
-        public void IsDefined_ValueUndefined_Throws()
+        public void IsDefinedEnum_ValueUndefined_Throws()
         {
             var underTest = new Argument<TestEnum>("Doot", (TestEnum)(int.MaxValue));
-            Assert.ThrowsException<EnumArgumentOutOfRangeException>(() => underTest.IsDefined());
+            Assert.ThrowsException<EnumArgumentOutOfRangeException>(() => underTest.IsDefinedEnum());
         }
 
         [TestMethod]
-        public void IsDefined_ValueNotEnum_Throws()
+        public void IsDefinedEnum_ValueNotEnum_Throws()
         {
             var underTest = new Argument<DateTime>("Doot", DateTime.Now);
-            Assert.ThrowsException<TypeArgumentException>(() => underTest.IsDefined());
+            Assert.ThrowsException<TypeArgumentException>(() => underTest.IsDefinedEnum());
         }
 
         [TestMethod]
-        public void IsDefined_ValueDefined_ReturnsSameValue()
+        public void IsDefinedEnum_ValueDefined_ReturnsSameValue()
         {
             var underTest = new Argument<TestEnum>("Doot", TestEnum.Yes);
-            var res = underTest.IsDefined();
+            var res = underTest.IsDefinedEnum();
 
             Assert.AreEqual(res.Value, underTest.Value);
         }

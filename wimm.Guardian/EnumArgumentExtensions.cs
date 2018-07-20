@@ -27,7 +27,8 @@ namespace wimm.Guardian
         /// The value of <paramref name="argument"/> does not match the value of any defined value 
         /// of <paramref name="argument"/>
         /// </exception>
-        public static Argument<T> IsDefined<T>(this Argument<T> argument) where T : struct, IComparable
+        public static Argument<T> IsDefinedEnum<T>(this Argument<T> argument) 
+            where T : struct, IComparable
         {
             if (!typeof(T).GetTypeInfo().IsEnum)
                 throw new TypeArgumentException(nameof(T), typeof(T));
