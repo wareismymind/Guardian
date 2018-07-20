@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace wimm.Guardian
 {
@@ -40,5 +36,69 @@ namespace wimm.Guardian
             return argument;
 
         }
+
+        /// <summary>
+        /// TODO:I47
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="argument"></param>
+        /// <returns></returns>
+        public static Argument<T> IsFlagCombo<T>(this Argument<T> argument) where T : struct, IComparable
+        {
+            var type = typeof(T);
+
+            argument.HasAttribute(typeof(FlagsAttribute));
+
+            var underlyingType = Enum.GetUnderlyingType(type);
+
+            if (underlyingType != typeof(int) && underlyingType != typeof(long))
+                throw new TypeArgumentException(argument.Name, type, "The underlying type must be int or long");
+
+            long[] values = FlagsToArray(type, underlyingType);
+
+
+            if (values.Any(x => BitHelpers.PopCount(x) != 1))
+                throw new TypeArgumentException(argument.Name, type, "Each flag must only have a single bit set");
+
+            var asLong = Convert.ToInt64(argument.Value);
+
+            if (!IsComposableFromFlags(asLong, values))
+                throw new ArgumentException(
+                    $"Argument was not a combination of the flags of type: {type.Name}", argument.Name);
+
+            return argument;
+        }
+
+
+        //TODO:I47 Next PR -> Make public
+        private static Argument<T> IsEnum<T>(this Argument<T> argument) where T : struct, IComparable
+        {
+            if (!typeof(T).GetTypeInfo().IsEnum)
+                throw new TypeArgumentException(nameof(T), typeof(T));
+
+            return argument;
+        }
+
+        private static bool IsComposableFromFlags(long toTest, long[] flags)
+        {
+            //Naive
+            var count = 0;
+
+            foreach (var value in flags)
+            {
+                count += (toTest & value) > 0 ? 1 : 0;
+            }
+
+            return count == BitHelpers.PopCount(toTest);
+        }
+
+        private static long[] FlagsToArray(Type enumType, Type underlyingType)
+        {
+            if (underlyingType == typeof(int))
+                return ((int[])Enum.GetValues(enumType)).Distinct().Select(x => (long)x).ToArray();
+            else
+                return ((long[])Enum.GetValues(enumType)).Distinct().ToArray();
+        }
+
     }
 }
