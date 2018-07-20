@@ -34,10 +34,47 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(res.Value, underTest.Value);
         }
 
+        [TestMethod]
+        public void IsFlagCombo_NoFlagAttribute_Throws()
+        {
+            var underTest = TestEnum.Yes.Require("Doot");
+            Assert.ThrowsException<TypeArgumentException>(() => underTest.IsFlagCombo());
+        }
+
+        [TestMethod]
+        public void IsFlagCombo_IsNotFlagCombo_Throws()
+        {
+            var underTest = ((ValidSequential)0x1000).Require("MoreDoot");
+            Assert.ThrowsException<ArgumentException>(() => underTest.IsFlagCombo());
+        }
+
+        [TestMethod]
+        public void IsFlagCombo_IsFlagCombo_ReturnsValueCopy()
+        {
+            var underTest = (ValidSequential.First | ValidSequential.Second).Require("SoMuchDoot");
+            var res = underTest.IsFlagCombo();
+
+            Assert.AreEqual(underTest.Value, res.Value);
+        }
+
         private enum TestEnum
         {
             Yes,
             No
+        }
+
+        [Flags]
+        private enum NonSequentialFlags
+        {
+            First = 0x1,
+            Second = 0x10
+        }
+
+        [Flags]
+        private enum ValidSequential
+        {
+            First = 0x1,
+            Second = 0x10
         }
     }
 
