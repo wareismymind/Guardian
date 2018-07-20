@@ -18,7 +18,7 @@ namespace wimm.Guardian
         /// correspond with the enum's predefined values
         /// </summary>
         /// <typeparam name="T"> The enum type to be tested </typeparam>
-        /// <param name="argument"> And argument containing the value to be checked </param>
+        /// <param name="argument"> An argument containing the value to be checked </param>
         /// <returns> A copy of the input <see cref="Argument{T}"/> </returns>
         /// <exception cref="TypeArgumentException"> 
         /// The input type <typeparamref name="T"/> is not an enum type
