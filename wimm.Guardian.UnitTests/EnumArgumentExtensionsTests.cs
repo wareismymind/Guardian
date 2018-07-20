@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace wimm.Guardian.UnitTests
 {
@@ -44,9 +39,19 @@ namespace wimm.Guardian.UnitTests
         [TestMethod]
         public void IsFlagCombo_IsNotFlagCombo_Throws()
         {
-            var underTest = ((ValidSequential)0x1000).Require("MoreDoot");
+            var underTest = ((LongFlags)0x1000).Require("MoreDoot");
             Assert.ThrowsException<ArgumentException>(() => underTest.IsFlagCombo());
         }
+
+        [TestMethod]
+        public void IsFlagCombo_DuplicateEnumValues_ReturnsValueCopy()
+        {
+            var underTest = AliasedFlags.First.Require("SuchDoot");
+            var res = underTest.IsFlagCombo();
+
+            Assert.AreEqual(underTest.Value, res.Value);
+        }
+
 
         [TestMethod]
         public void IsFlagCombo_IsFlagCombo_ReturnsValueCopy()
@@ -64,17 +69,24 @@ namespace wimm.Guardian.UnitTests
         }
 
         [Flags]
-        private enum NonSequentialFlags
+        private enum ValidSequential
         {
             First = 0x1,
             Second = 0x10
         }
 
         [Flags]
-        private enum ValidSequential
+        private enum AliasedFlags
         {
             First = 0x1,
-            Second = 0x10
+            Second = First
+        }
+
+        [Flags]
+        private enum LongFlags :long
+        {
+            First = 0x1,
+            Second = 0x01
         }
     }
 
