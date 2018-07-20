@@ -25,7 +25,7 @@ namespace wimm.Guardian
         /// </exception>
         /// <exception cref="EnumArgumentOutOfRangeException">
         /// The value of <paramref name="argument"/> does not match the value of any defined value 
-        /// of <paramref name="argument"/>
+        /// of <typeparamref name="T"/>
         /// </exception>
         public static Argument<T> IsDefinedEnum<T>(this Argument<T> argument) 
             where T : struct, IComparable
