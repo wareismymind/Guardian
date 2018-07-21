@@ -60,10 +60,7 @@ namespace wimm.Guardian
 
             argument.HasAttribute(typeof(FlagsAttribute));
 
-            long[] values = FlagsToArray(type);
-
-            if (values.Any(x => BitHelpers.PopCount(x) != 1))
-                throw new TypeArgumentException(argument.Name, type, "Each flag must only have a single bit set");
+            var values = FlagsToArray(type);
 
             var asLong = Convert.ToInt64(argument.Value);
 
