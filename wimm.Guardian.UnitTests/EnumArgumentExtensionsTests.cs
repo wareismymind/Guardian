@@ -122,7 +122,6 @@ namespace wimm.Guardian.UnitTests
             Second = 0x01
         }
 
-        //System.Enum
         [Flags]
         private enum UnsignedFlags : uint
         {
