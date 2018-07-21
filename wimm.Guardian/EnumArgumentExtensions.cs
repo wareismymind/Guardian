@@ -45,9 +45,6 @@ namespace wimm.Guardian
         /// <param name="argument"> An argument containing the value to be checked </param>
         /// <returns> A copy of the input <see cref="Argument{T}"/></returns>
         /// <exception cref="TypeArgumentException"> 
-        /// The underlying type of <typeparamref name="T"/>is not <see cref="int"/> or <see cref="long"/>
-        /// </exception>
-        /// <exception cref="TypeArgumentException"> 
         /// <typeparamref name="T"/> does not possess the <see cref="FlagsAttribute"/>
         /// </exception>
         /// <exception cref="TypeArgumentException">
@@ -65,11 +62,7 @@ namespace wimm.Guardian
 
             var underlyingType = Enum.GetUnderlyingType(type);
 
-            if (underlyingType != typeof(int) && underlyingType != typeof(long))
-                throw new TypeArgumentException(argument.Name, type, "The underlying type must be int or long");
-
             long[] values = FlagsToArray(type, underlyingType);
-
 
             if (values.Any(x => BitHelpers.PopCount(x) != 1))
                 throw new TypeArgumentException(argument.Name, type, "Each flag must only have a single bit set");
@@ -95,24 +88,28 @@ namespace wimm.Guardian
 
         private static bool IsComposableFromFlags(long toTest, long[] flags)
         {
-            //Naive
-            var count = 0;
+            var composed = 0L;
 
-            foreach (var value in flags)
+            foreach (var item in flags)
             {
-                count += (toTest & value) > 0 ? 1 : 0;
+                composed |= item;
             }
 
-            return count == BitHelpers.PopCount(toTest);
+            return (toTest & composed) == toTest;
+
         }
 
         private static long[] FlagsToArray(Type enumType, Type underlyingType)
         {
-            if (underlyingType == typeof(int))
-                return ((int[])Enum.GetValues(enumType)).Distinct().Select(x => (long)x).ToArray();
-            else
-                return ((long[])Enum.GetValues(enumType)).Distinct().ToArray();
-        }
+            var values = Enum.GetValues(enumType);
+            var arr = new long[values.Length];
 
+            for (int i = 0; i < values.Length; i++)
+            {
+                arr[i] = ((IConvertible)values.GetValue(i)).ToInt64(null);
+            }
+
+            return arr;
+        }
     }
 }
