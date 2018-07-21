@@ -26,8 +26,7 @@ namespace wimm.Guardian
         public static Argument<T> IsDefinedEnum<T>(this Argument<T> argument) 
             where T : struct, IComparable
         {
-            if (!typeof(T).GetTypeInfo().IsEnum)
-                throw new TypeArgumentException(nameof(T), typeof(T));
+            argument.IsEnum();
 
             if (!Enum.IsDefined(typeof(T), argument.Value))
                 throw new EnumArgumentOutOfRangeException(
