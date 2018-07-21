@@ -62,6 +62,25 @@ namespace wimm.Guardian.UnitTests
             Assert.AreEqual(underTest.Value, res.Value);
         }
 
+        [TestMethod]
+        public void IsFlagCombo_DifferentIntegralTypes_ReturnsValueCopy()
+        {
+            var shortTest = ShortFlags.Second.Require("Short");
+            var longTest = LongFlags.Second.Require("Long");
+            var byteTest = ByteFlags.Second.Require("Byte");
+            var unsignedTest = UnsignedFlags.Second.Require("Unsigned");
+
+            var shortResp = shortTest.IsFlagCombo();
+            var longResp = longTest.IsFlagCombo();
+            var byteResp = byteTest.IsFlagCombo();
+            var unsignedResp = unsignedTest.IsFlagCombo();
+
+            Assert.AreEqual(shortTest.Value, shortResp.Value);
+            Assert.AreEqual(longTest.Value, longResp.Value);
+            Assert.AreEqual(byteTest.Value, byteResp.Value);
+            Assert.AreEqual(unsignedTest.Value, unsignedResp.Value);
+        }
+
         private enum TestEnum
         {
             Yes,
@@ -88,7 +107,30 @@ namespace wimm.Guardian.UnitTests
             First = 0x1,
             Second = 0x01
         }
+
+        [Flags]
+        private enum ShortFlags : short
+        {
+            First = 0x1,
+            Second = 0x01
+        }
+
+        [Flags]
+        private enum ByteFlags : byte
+        {
+            First = 0x1,
+            Second = 0x01
+        }
+
+        //System.Enum
+        [Flags]
+        private enum UnsignedFlags : uint
+        {
+            First = 0x1,
+            Second = 0x01
+        }
     }
+    
 
 
 }
