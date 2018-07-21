@@ -38,11 +38,26 @@ namespace wimm.Guardian
         }
 
         /// <summary>
-        /// TODO:I47
+        /// Throws an <see cref="ArgumentException"/> if the value of <paramref name="argument"/> cannot
+        /// be composed of values of the <see cref="FlagsAttribute"/> tagged <see cref="Enum"/> 
+        /// <typeparamref name="T"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="argument"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">A <see cref="FlagsAttribute"/> tagged <see cref="Enum"/></typeparam>
+        /// <param name="argument"> And argument containing the value to be checked </param>
+        /// <returns> A copy of the input <see cref="Argument{T}"/></returns>
+        /// <exception cref="TypeArgumentException"> 
+        /// The underlying type of <typeparamref name="T"/>is not <see cref="int"/> or <see cref="long"/>
+        /// </exception>
+        /// <exception cref="TypeArgumentException"> 
+        /// <typeparamref name="T"/> does not possess the <see cref="FlagsAttribute"/>
+        /// </exception>
+        /// <exception cref="TypeArgumentException">
+        /// The flag values of <typeparamref name="T"/> are not individual bits
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The value <paramref name="argument"/> is not composable from individual flags of the input type
+        /// <typeparamref name="T"/>
+        /// </exception>
         public static Argument<T> IsFlagCombo<T>(this Argument<T> argument) where T : struct, IComparable
         {
             var type = typeof(T);
