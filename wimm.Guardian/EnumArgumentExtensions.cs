@@ -60,9 +60,7 @@ namespace wimm.Guardian
 
             argument.HasAttribute(typeof(FlagsAttribute));
 
-            var underlyingType = Enum.GetUnderlyingType(type);
-
-            long[] values = FlagsToArray(type, underlyingType);
+            long[] values = FlagsToArray(type);
 
             if (values.Any(x => BitHelpers.PopCount(x) != 1))
                 throw new TypeArgumentException(argument.Name, type, "Each flag must only have a single bit set");
@@ -99,7 +97,7 @@ namespace wimm.Guardian
 
         }
 
-        private static long[] FlagsToArray(Type enumType, Type underlyingType)
+        private static long[] FlagsToArray(Type enumType)
         {
             var values = Enum.GetValues(enumType);
             var arr = new long[values.Length];
