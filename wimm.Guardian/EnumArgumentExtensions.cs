@@ -43,7 +43,7 @@ namespace wimm.Guardian
         /// <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">A <see cref="FlagsAttribute"/> tagged <see cref="Enum"/></typeparam>
-        /// <param name="argument"> And argument containing the value to be checked </param>
+        /// <param name="argument"> An argument containing the value to be checked </param>
         /// <returns> A copy of the input <see cref="Argument{T}"/></returns>
         /// <exception cref="TypeArgumentException"> 
         /// The underlying type of <typeparamref name="T"/>is not <see cref="int"/> or <see cref="long"/>
