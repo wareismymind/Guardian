@@ -37,10 +37,6 @@ namespace wimm.Guardian
             return PopCount((int)toCount) + PopCount((int)(toCount >> 32));
         }
 
-
-
-
-
         public static int KernighanPopCount(int toCount)
         {
             var count = 0;
