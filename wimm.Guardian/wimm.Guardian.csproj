@@ -19,10 +19,10 @@
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="Exists('$(WIMM_SNKS)\wimm.Guardian.snk')">  
+  <PropertyGroup Condition="Exists('..\wimm.Guardian.snk')">  
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(WIMM_SNKS)\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
