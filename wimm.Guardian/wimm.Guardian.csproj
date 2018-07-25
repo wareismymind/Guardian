@@ -46,6 +46,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BitHelpers.cs" />
     <Compile Remove="Requirement.cs" />
   </ItemGroup>
 
