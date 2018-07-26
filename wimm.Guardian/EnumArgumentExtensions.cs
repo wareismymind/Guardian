@@ -71,16 +71,6 @@ namespace wimm.Guardian
             return argument;
         }
 
-
-        //TODO:I47 Next PR -> Make public
-        private static Argument<T> IsEnum<T>(this Argument<T> argument) where T : struct, IComparable
-        {
-            if (!typeof(T).GetTypeInfo().IsEnum)
-                throw new TypeArgumentException(nameof(T), typeof(T));
-
-            return argument;
-        }
-
         private static bool IsComposableFromFlags(long toTest, long[] flags)
         {
             var composed = 0L;
