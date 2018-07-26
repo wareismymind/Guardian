@@ -23,15 +23,36 @@ namespace wimm.Guardian.UnitTests
             Assert.AreSame(underTest, value.Value);
         }
 
+        [TestMethod]
+        public void IsEnum_IsNotEnum_Throws()
+        {
+            const int underTest = 3;
+            Assert.ThrowsException<TypeArgumentException>(() =>underTest.Require(nameof(underTest)).IsEnum());
+        }
+
+        [TestMethod]
+        public void IsEnum_IsEnum_ReturnsArgument()
+        {
+            var underTest = TestEnum.Value;
+            var res = underTest.Require(nameof(underTest)).IsEnum();
+
+            Assert.AreEqual(underTest, res.Value);
+        }
+
+        public enum TestEnum
+        {
+            Value
+        }
+
         [Serializable]
         private class TestClass
         {
-            public int i = 0;
+            public int i;
         }
 
         private class NoAttribute
         {
-            public int i = 0;
+            public int i;
         }
     }
 }
