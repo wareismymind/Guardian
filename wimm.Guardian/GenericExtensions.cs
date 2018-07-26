@@ -23,5 +23,14 @@ namespace wimm.Guardian
 
             return argument;
         }
+
+
+        public static Argument<T> IsEnum<T>(this Argument<T> argument) where T : struct, IComparable
+        {
+            if (!typeof(T).GetTypeInfo().IsEnum)
+                throw new TypeArgumentException(nameof(T), typeof(T));
+
+            return argument;
+        }
     }
 }
