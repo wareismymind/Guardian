@@ -18,7 +18,13 @@ namespace wimm.Guardian
         public Type Type { get; }
 
         internal TypeArgumentException(string typeParamName, Type type)
-            : base($"{typeParamName} does not supported type {type.FullName}.")
+            : this(typeParamName, type, null)
+        {
+
+        }
+
+        internal TypeArgumentException(string typeParamName, Type type, string additionalMessage)
+            : base($"{typeParamName} does not support type {type.FullName}.{additionalMessage ?? string.Empty}")
         {
             TypeParamName = typeParamName.Require(nameof(typeParamName)).IsNotNull().Value;
             Type = type.Require(nameof(type)).IsNotNull().Value;

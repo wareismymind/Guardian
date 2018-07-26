@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;net45</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>0.3.0</Version>
+    <Version>0.1.0</Version>
     <Copyright>Copyright 2017 (c) Thomas Showers. All rights reserved.</Copyright>
-    <AssemblyVersion>0.2.1.0</AssemblyVersion>
-    <FileVersion>0.2.1.0</FileVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
     <PackageTags>Validation, Arguments, Guard</PackageTags>
-    <Authors>Thomas Showers</Authors>
+    <Authors>Thomas Showers, Chris Nantau</Authors>
     <Company>wareismymind</Company>
-    <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/release/0.1/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/release/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
     <PackageReleaseNotes>- Removes 'ISubject' to focus on argument validation.</PackageReleaseNotes>
@@ -19,10 +19,10 @@
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="Exists('$(WIMM_SNKS)\wimm.Guardian.snk')">  
+  <PropertyGroup Condition="Exists('..\wimm.Guardian.snk')">  
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(WIMM_SNKS)\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\wimm.Guardian.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -46,6 +46,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BitHelpers.cs" />
     <Compile Remove="Requirement.cs" />
   </ItemGroup>
 
