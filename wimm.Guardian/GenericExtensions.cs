@@ -2,12 +2,12 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-//TODO:I47 -> Remove eventually, or not
-[assembly: InternalsVisibleTo("wimm.Guardian.UnitTests")]
-
 namespace wimm.Guardian
 {
-    internal static class GenericExtensions
+    /// <summary>
+    /// Validations that occur in generic contexts
+    /// </summary>
+    public static class GenericExtensions
     {
         internal static void IsNotNullIfNullable<T>(this Argument<T> argument)
         {
