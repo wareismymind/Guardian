@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace wimm.Guardian.UnitTests
 {
@@ -10,8 +9,7 @@ namespace wimm.Guardian.UnitTests
         [TestMethod]
         public void Construct_NullName_Throws()
         {
-            var ex =
-                Assert.ThrowsException<ArgumentNullException>(() => new Argument<int>(null, 0));
+            var ex = Assert.ThrowsException<ArgumentNullException>(() => new Argument<int>(null, 0));
             Assert.AreEqual("name", ex.ParamName);
         }
 
