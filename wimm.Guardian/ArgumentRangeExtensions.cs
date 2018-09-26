@@ -18,10 +18,12 @@ namespace wimm.Guardian
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsLessThan<T>(this Argument<T> target, T value)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsLessThan<T>(this Argument<T> target, T value) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
             value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (!target.Value.IsLessThan(value))
@@ -41,10 +43,12 @@ namespace wimm.Guardian
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsNotLessThan<T>(this Argument<T> target, T value)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsNotLessThan<T>(this Argument<T> target, T value) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
             value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (target.Value.IsLessThan(value))
@@ -64,10 +68,12 @@ namespace wimm.Guardian
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsGreaterThan<T>(this Argument<T> target, T value)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsGreaterThan<T>(this Argument<T> target, T value) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
             value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (!target.Value.IsGreaterThan(value))
@@ -87,10 +93,12 @@ namespace wimm.Guardian
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsNotGreaterThan<T>(this Argument<T> target, T value)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsNotGreaterThan<T>(this Argument<T> target, T value) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
             value.Require(nameof(value)).IsNotNullIfNullable();
 
             if (target.Value.IsGreaterThan(value))
@@ -101,111 +109,117 @@ namespace wimm.Guardian
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is less than <paramref name="min"/> or greater than
-        /// <paramref name="max"/>.
+        /// <paramref name="target"/> not in the range specified by <paramref name="min"/> and
+        /// <paramref name="max"/> inclusive.
         /// </summary>
         /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <param name="target">The target.</param>
-        /// <param name="min">The minimum allowed value for <paramref name="target"/>.</param>
-        /// <param name="max">The maximum allowed value for <paramref name="target"/>.</param>
+        /// <param name="min">The minimum value of the range.</param>
+        /// <param name="max">The maximum value of the range.</param>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsInRange<T>(this Argument<T> target, T min, T max)
-            where T : IComparable<T>
-        {
-            target.AssertArgumentIsComparable();
-            min.Require(nameof(min)).IsNotNullIfNullable();
-            max.Require(nameof(max)).IsNotNullIfNullable();
-
-            return target.IsNotLessThan(min).IsNotGreaterThan(max);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is greater than or equal to <paramref name="min"/> and less
-        /// than or equal to <paramref name="max"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the arugment.</typeparam>
-        /// <param name="target">The target.</param>
-        /// <param name="min">The minimum allowed value for <paramref name="target"/>.</param>
-        /// <param name="max">The maximum allowed value for <paramref name="target"/>.</param>
-        /// <returns><paramref name="target"/>.</returns>
-        /// <exception cref="InvalidOperationException">
-        /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="min"/> or <paramref name="max"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsNotInRange<T>(this Argument<T> target, T min, T max)
-            where T : IComparable<T>
+        public static Argument<T> IsInRange<T>(this Argument<T> target, T min, T max) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
             min.Require(nameof(min)).IsNotNullIfNullable();
             max.Require(nameof(max)).IsNotNullIfNullable();
 
-            if (!(target.Value.IsLessThan(min) || target.Value.IsGreaterThan(max)))
+            if (target.Value.IsLessThan(min) || target.Value.IsGreaterThan(max))
                 throw new ArgumentOutOfRangeException(
-                    target.Name,
-                    $"Must be less than {min} or greater than {max}.");
+                    target.Name, $"Must be in the range of {min} to {max} inclusive.");
 
             return target;
         }
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is less than or equal to <paramref name="floor"/>, or greater
-        /// than or equal to <paramref name="ceiling"/>.
+        /// <paramref name="target"/> in the range specified by <paramref name="min"/> and
+        /// <paramref name="max"/> inclusive.
         /// </summary>
         /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <param name="target">The target.</param>
-        /// <param name="floor">
-        /// The value that <paramref name="target"/> must be greater than.
-        /// </param>
-        /// <param name="ceiling">
-        /// The value that <paramref name="target"/> must be less than.
-        /// </param>
+        /// <param name="min">The minimum value of the range.</param>
+        /// <param name="max">The maximum value of the range.</param>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsBetween<T>(this Argument<T> target, T floor, T ceiling)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="min"/> or <paramref name="max"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsNotInRange<T>(this Argument<T> target, T min, T max) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
-            floor.Require(nameof(floor)).IsNotNullIfNullable();
-            ceiling.Require(nameof(ceiling)).IsNotNullIfNullable(); 
+            target.RequireValueToCompare();
+            min.Require(nameof(min)).IsNotNullIfNullable();
+            max.Require(nameof(max)).IsNotNullIfNullable();
 
-            return target.IsGreaterThan(floor).IsLessThan(ceiling);
+            if (!(target.Value.IsLessThan(min) || target.Value.IsGreaterThan(max)))
+                throw new ArgumentOutOfRangeException(
+                    target.Name, $"Must be outside the range of {min} to {max} inclusive.");
+
+            return target;
         }
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
-        /// <paramref name="target"/> is greater than <paramref name="floor"/> and less than
-        /// <paramref name="ceiling"/>.
+        /// <paramref name="target"/> is not between <paramref name="floor"/> and
+        /// <paramref name="ceiling"/> exclusive.
         /// </summary>
         /// <typeparam name="T">The type of the arugment.</typeparam>
         /// <param name="target">The target.</param>
-        /// <param name="floor">
-        /// The floor of the range that <paramref name="target"/>'s value must not be in.
-        /// </param>
-        /// <param name="ceiling">
-        /// The ceiling of the range that <paramref name="target"/>'s value must not be in.
-        /// </param>
+        /// <param name="floor">The minimum value of the range.</param>
+        /// <param name="ceiling">The maximum value of the range.</param>
         /// <returns><paramref name="target"/>.</returns>
         /// <exception cref="InvalidOperationException">
         /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
         /// </exception>
-        public static Argument<T> IsNotBetween<T>(this Argument<T> target, T floor, T ceiling)
-            where T : IComparable<T>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="floor"/> or <paramref name="ceiling"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsBetween<T>(this Argument<T> target, T floor, T ceiling) where T : IComparable<T>
         {
-            target.AssertArgumentIsComparable();
+            target.RequireValueToCompare();
+            floor.Require(nameof(floor)).IsNotNullIfNullable();
+            ceiling.Require(nameof(ceiling)).IsNotNullIfNullable();
+
+            if (!(target.Value.IsGreaterThan(floor) && target.Value.IsLessThan(ceiling)))
+                throw new ArgumentOutOfRangeException(
+                    target.Name, $"Must be between {floor} and {ceiling} exclusive.");
+
+            return target;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException"/> if the value of
+        /// <paramref name="target"/> is between <paramref name="floor"/> and
+        /// <paramref name="ceiling"/> exclusive.
+        /// </summary>
+        /// <typeparam name="T">The type of the arugment.</typeparam>
+        /// <param name="target">The target.</param>
+        /// <param name="floor">The minimum value of the range.</param>
+        /// <param name="ceiling">The maximum value of the range.</param>
+        /// <returns><paramref name="target"/>.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// The <see cref="Argument{T}.Value"/> member of <paramref name="target"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="floor"/> or <paramref name="ceiling"/> is <c>null</c>.
+        /// </exception>
+        public static Argument<T> IsNotBetween<T>(this Argument<T> target, T floor, T ceiling) where T : IComparable<T>
+        {
+            target.RequireValueToCompare();
 
             floor.Require(nameof(floor)).IsNotNullIfNullable();
             ceiling.Require(nameof(ceiling)).IsNotNullIfNullable();
 
             if (target.Value.IsGreaterThan(floor) && target.Value.IsLessThan(ceiling))
                 throw new ArgumentOutOfRangeException(
-                    target.Name,
-                    $"Must be less than or equal to {floor} or greater than or equal to {ceiling}.");
+                    target.Name, $"Must not be between {floor} and {ceiling} exclusive.");
 
             return target;
         }
@@ -216,13 +230,10 @@ namespace wimm.Guardian
         private static bool IsGreaterThan<T>(this IComparable<T> target, T value) =>
             target.CompareTo(value) > 0;
 
-        private static void AssertArgumentIsComparable<T>(this Argument<T> target)
+        private static void RequireValueToCompare<T>(this Argument<T> target)
         {
             if (target.Value == null)
-                throw new InvalidOperationException(
-                    $"Cannot compare against null-valued Argument.");
+                throw new InvalidOperationException("A non-null value is required to perform range comparisons.");
         }
-
-
     }
 }
