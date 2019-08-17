@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net45</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -12,10 +12,10 @@
     <PackageTags>Validation, Arguments, Guard</PackageTags>
     <Authors>Thomas Showers, Chris Nantau</Authors>
     <Company>wareismymind</Company>
-    <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/release/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl type="expression">https://github.com/wareismymind/Guardian/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
-    <PackageReleaseNotes>- Removes 'ISubject' to focus on argument validation.</PackageReleaseNotes>
+    <PackageReleaseNotes> Multitargeting adding .NetStandard2.0 to reduce the size of the package graph on 2.0+ platforms </PackageReleaseNotes>
     <Description>A fluent, extensible interface for guard clauses and argument validation.</Description>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
