@@ -12,7 +12,7 @@
     <PackageTags>Validation, Arguments, Guard</PackageTags>
     <Authors>Thomas Showers, Chris Nantau</Authors>
     <Company>wareismymind</Company>
-    <PackageLicenseUrl type="expression">https://github.com/wareismymind/Guardian/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/wareismymind/Guardian/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wareismymind/Guardian</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wareismymind/Guardian</RepositoryUrl>
     <PackageReleaseNotes> Multitargeting adding .NetStandard2.0 to reduce the size of the package graph on 2.0+ platforms </PackageReleaseNotes>
